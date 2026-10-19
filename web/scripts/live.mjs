@@ -58,6 +58,26 @@ async function receiptFor(tx, account) {
   return result;
 }
 
+async function finalizedState(address) {
+  return client().readContract({ address, functionName: "get_state", args: [], transactionHashVariant: TransactionHashVariant.LATEST_FINAL });
+}
+
+async function writeStage(state, stage, account, method, args = [], value = 0n) {
+  state.steps ||= {};
+  state.steps[stage] ||= {};
+  if (!state.steps[stage].hash) {
+    const hash = await client(account).writeContract({ address: state.address, functionName: method, args, value });
+    state.steps[stage].hash = hash;
+    save(journalPath, state);
+    console.log(`submitted_${stage} ${hash}`);
+  }
+  await receiptFor(state.steps[stage].hash, account);
+  state.steps[stage].status = "FINALIZED_SUCCESS";
+  state.steps[stage].readBack = await finalizedState(state.address);
+  save(journalPath, state);
+  return state.steps[stage].readBack;
+}
+
 async function main() {
   const command = process.argv[2] || "status";
   const accounts = wallets();
@@ -70,7 +90,18 @@ async function main() {
     console.log(JSON.stringify(journal(), null, 2));
     return;
   }
-  if (command !== "deploy") throw new Error("Use init, status, or deploy.");
+  if (command === "screen") {
+    const state = journal();
+    if (!state.address || state.deployStatus !== "FINALIZED_SUCCESS") throw new Error("Finalize the deployment first.");
+    if (state.sourceBlob !== pushedSource().blob) throw new Error("Contract source changed since deployment.");
+    for (let index = 0; index < 3; index++) {
+      const after = await writeStage(state, `check_T${index + 1}`, accounts.buyer, "check_term", [index]);
+      console.log(`check_T${index + 1}_verdict ${after.checks[index]}`);
+      if (after.checks[index] !== "OBSERVABLE") throw new Error("Unexpected observability judgment; investigate without retrying.");
+    }
+    return;
+  }
+  if (command !== "deploy") throw new Error("Use init, status, deploy, or screen.");
   const { head, blob, source } = pushedSource();
   const state = journal();
   if (state.commit && state.commit !== head) {
@@ -97,7 +128,7 @@ async function main() {
   state.address = receipt.txDataDecoded?.contractAddress || receipt.recipient;
   if (!/^0x[0-9a-fA-F]{40}$/.test(state.address || "")) throw new Error("Successful deploy but no address in receipt.");
   state.deployStatus = "FINALIZED_SUCCESS";
-  state.initialRead = await client(accounts.buyer).readContract({ address: state.address, functionName: "get_state", args: [], transactionHashVariant: TransactionHashVariant.LATEST_FINAL });
+  state.initialRead = await finalizedState(state.address);
   const deployedSource = await client(accounts.buyer).getContractCode(state.address);
   if (deployedSource !== source) throw new Error("On-chain source differs from the pushed Git blob.");
   state.sourceMatchesGitBlob = true;
