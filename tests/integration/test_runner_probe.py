@@ -16,7 +16,7 @@ def summarize(label: str, receipt: dict) -> None:
 
 def test_pinned_runner_deploy_write_read() -> None:
     account = get_default_account()
-    factory = get_contract_factory(contract_file_path="contracts/runner_probe.py")
+    factory = get_contract_factory(contract_file_path="runner_probe.py")
     deployment = factory.deploy_contract_tx(
         account=account,
         wait_transaction_status=TransactionStatus.FINALIZED,
