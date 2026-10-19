@@ -4,6 +4,8 @@ __pycache__/
 node_modules/
 dist/
 .artifacts/
+deploy/.wallets.json
+deploy/.live-journal.json
 .env
 .env.*
 !.env.example
