@@ -4,8 +4,9 @@ import { useAccount } from "wagmi";
 import { parseEther } from "viem";
 import { date, deployOrder, errorText, gen, readCredit, readOrder, same, short, studioChainId, submitWrite, validAddress } from "./genlayer";
 import type { OrderState, Term } from "./types";
+import proof from "../public/proof.json";
 
-const initialAddress = new URLSearchParams(window.location.search).get("address") || import.meta.env.VITE_CONTRACT_ADDRESS || "";
+const initialAddress = new URLSearchParams(window.location.search).get("address") || import.meta.env.VITE_CONTRACT_ADDRESS || proof.contract.address;
 const exampleTerms = [
   { id: "T1", name: "CSV export", old: "id, date, SKU, quantity, price", changed: "id, date, SKU", status: "Needs fresh approval" },
   { id: "T2", name: "Training guide", old: "Markdown setup and troubleshooting", changed: "Unchanged", status: "Approval survives" },
@@ -187,7 +188,7 @@ export default function App({ mobileWalletsEnabled }: { mobileWalletsEnabled: bo
   return <div className="page-shell">
     <header className="site-header wrap">
       <a className="brand" href="/" aria-label="ChangeOrder Firewall home"><span className="brand-mark">C<span>F</span></span><span>ChangeOrder <b>Firewall</b></span></a>
-      <nav aria-label="Primary"><a href="#mechanism">How it works</a><a href="#create">Create</a><a href="#review">Review an order</a><a href="#limitations">Limits</a></nav>
+      <nav aria-label="Primary"><a href="#mechanism">How it works</a><a href="#proof">Live proof</a><a href="#create">Create</a><a href="#review">Review an order</a><a href="#limitations">Limits</a></nav>
       <ConnectButton showBalance={false} chainStatus="icon" accountStatus="avatar" />
     </header>
 
@@ -197,10 +198,10 @@ export default function App({ mobileWalletsEnabled }: { mobileWalletsEnabled: bo
           <h1>Orders change.<br/><em>Approvals shouldn’t lie.</em></h1>
           <p className="lede">A signed change to one requirement should not silently reuse an old approval—or erase approvals for unrelated work. ChangeOrder Firewall makes that boundary explicit and auditable.</p>
           <div className="hero-actions"><a className="button button-primary" href="#review">Inspect an order <span aria-hidden="true">↗</span></a><a className="button button-ghost" href="#mechanism">See the mechanism</a></div>
-          <p className="honesty">Local build · No deployed proof is claimed yet. The sample below explains the mechanism; it is not a live receipt.</p>
+          <p className="honesty">Live StudioNet contract with finalized receipts and exact test-GEN settlement. The diagram shows the post-amendment, pre-claim snapshot; browser-wallet actions remain unverified.</p>
         </div>
         <div className="hero-visual" aria-label="A material change to T1 blocks T1 and its dependent T3, while T2 remains valid">
-          <div className="diagram-head"><span>ORDER REVISION 01</span><span className="live-dot">Semantic impact</span></div>
+          <div className="diagram-head"><span>RECORDED REVISION 01</span><span className="live-dot">Post-amendment snapshot</span></div>
           <div className="diagram-row changed"><span className="diagram-node">T1</span><div><strong>Export schema</strong><small>Five columns → three</small></div><span className="diagram-state">REAPPROVE</span></div>
           <div className="diagram-branch"><span></span><span>↳ dependency propagates</span></div>
           <div className="diagram-row blocked"><span className="diagram-node">T3</span><div><strong>Integration package</strong><small>Depends on the T1 schema</small></div><span className="diagram-state">REAPPROVE</span></div>
@@ -215,7 +216,15 @@ export default function App({ mobileWalletsEnabled }: { mobileWalletsEnabled: bo
         </div>
       </section>
 
-      <section className="example wrap" aria-labelledby="example-title"><div><span className="eyebrow">ILLUSTRATIVE CASE · NOT LIVE PROOF</span><h2 id="example-title">Three tranches, one changed requirement.</h2><p>Imagine an order for an export, a guide and an integration package. The integration depends on the export’s schema; the guide does not.</p></div><div className="example-list">{exampleTerms.map(term => <div key={term.id}><span>{term.id}</span><div><strong>{term.name}</strong><small>{term.old} · {term.changed}</small></div><StatusPill kind={term.id === "T2" ? "good" : "warn"}>{term.status}</StatusPill></div>)}</div></section>
+      <section className="example wrap" aria-labelledby="example-title"><div><span className="eyebrow">RECORDED STUDIONET CASE · REVISION 1</span><h2 id="example-title">Three tranches, one changed requirement.</h2><p>The signed amendment removed CSV columns from T1. Its dependent integration T3 needed fresh approval, while unrelated T2 kept its approval. This is the recorded state immediately after the amendment; all three tranches were subsequently claimed.</p></div><div className="example-list">{exampleTerms.map(term => <div key={term.id}><span>{term.id}</span><div><strong>{term.name}</strong><small>{term.old} · {term.changed}</small></div><StatusPill kind={term.id === "T2" ? "good" : "warn"}>{term.status}</StatusPill></div>)}</div></section>
+
+      <section id="proof" className="proof-band"><div className="wrap proof-grid"><div><span className="eyebrow">FINALIZED STUDIO RECEIPTS</span><h2>A checkable path from edit to payout.</h2><p>This case used two test-only wallets. The saved snapshots show generations <code>[1, 0, 1]</code> after the signed amendment and approvals <code>[0, 0, 0]</code>: T1 and T3 were stale, while T2 remained current.</p><a className="proof-contract" href={proof.contract.explorer} target="_blank" rel="noreferrer">Open deployed contract ↗</a><a className="proof-contract" href="/proof.json" target="_blank" rel="noreferrer">Download proof manifest ↗</a></div><div className="proof-list">
+        <a href={proof.transactions.judge_material_T1.explorer} target="_blank" rel="noreferrer"><span>01</span><div><strong>Materiality: MATERIAL</strong><small>Validators classified the changed CSV obligation.</small></div><b>Receipt ↗</b></a>
+        <a href={proof.transactions.apply_material_T1.explorer} target="_blank" rel="noreferrer"><span>02</span><div><strong>T1 and T3 invalidated; T2 survives</strong><small>The dependency rule advanced only the affected generations.</small></div><b>Receipt ↗</b></a>
+        <a href={proof.transactions.stale_T1_claim.explorer} target="_blank" rel="noreferrer"><span>03</span><div><strong>Old T1 approval rejected</strong><small>Finalized execution error; order state remained unchanged.</small></div><b>Receipt ↗</b></a>
+        <a href={proof.transactions.claim_unaffected_T2.explorer} target="_blank" rel="noreferrer"><span>04</span><div><strong>Unrelated T2 claim succeeded</strong><small>Its existing approval was still valid.</small></div><b>Receipt ↗</b></a>
+        <a href={proof.transactions.withdraw_supplier_credit.explorer} target="_blank" rel="noreferrer"><span>05</span><div><strong>Exact 0.003 test GEN withdrawn</strong><small>Supplier credit reached zero; wallet balance rose by 0.003 GEN.</small></div><b>Receipt ↗</b></a>
+      </div></div></section>
 
       <section id="create" className="create-band"><div className="wrap create-grid"><div><span className="eyebrow">START A NEW ORDER</span><h2>Freeze the terms before the work changes.</h2><p>As buyer, name the supplier and define 1–6 observable obligations. A tranche’s exact test-GEN amount and dependencies are immutable after deployment. The example is editable; it does not deploy until you sign.</p><div className="review-tip"><b>After deployment</b><span>Screen each obligation, fund the exact total, and have the supplier accept. Only then can the buyer approve completed terms or either party propose a jointly signed change.</span></div></div>
         <form className="create-form" onSubmit={e => void createOrder(e)}><h3>Create on StudioNet</h3><label htmlFor="draftTitle">Order title</label><input id="draftTitle" value={draftTitle} maxLength={100} onChange={e => setDraftTitle(e.target.value)} required />
@@ -234,7 +243,7 @@ export default function App({ mobileWalletsEnabled }: { mobileWalletsEnabled: bo
         <div className="review-panel"><div className="panel-title"><span className="panel-light"></span><strong>Contract inspector</strong><StatusPill>{order ? "FINALIZED READ" : "AWAITING ADDRESS"}</StatusPill></div>
           <form onSubmit={inspect} className="address-form"><label htmlFor="contractAddress">StudioNet Intelligent Contract address</label><div><input id="contractAddress" value={addressText} onChange={e => setAddressText(e.target.value)} placeholder="0x…" spellCheck={false}/><button type="submit">Inspect</button></div></form>
           {loading && <p className="panel-note">Reading finalized chain state…</p>}
-          {!contractAddress && <p className="panel-note">No deployment is configured. The example above is illustrative until a finalized contract and proof manifest are published.</p>}
+          {!contractAddress && <p className="panel-note">Enter a StudioNet contract address to read its finalized state. The live demo address is preloaded by default.</p>}
           {error && <p className="alert alert-error" role="alert">{error}</p>}
           {notice && <p className="alert alert-info" role="status">{notice} {pendingTx && <a href={`https://explorer-studio.genlayer.com/tx/${pendingTx}`} target="_blank" rel="noreferrer">Inspect transaction ↗</a>}</p>}
           {pendingTx && <button className="text-button" onClick={() => { setPendingTx(""); void refresh(); }}>I inspected this transaction; refresh state</button>}
@@ -258,7 +267,7 @@ export default function App({ mobileWalletsEnabled }: { mobileWalletsEnabled: bo
         </div>
       </div></section>
 
-      <section id="limitations" className="limits wrap"><div><span className="eyebrow">HONEST BOUNDARIES</span><h2>What the firewall does—and doesn’t—prove.</h2></div><div><p>It records whether validators agreed that changed wording materially affects an obligation, and it enforces approval generations and exact pre-funded amounts. It does <b>not</b> prove physical delivery, authenticate a document issuer, or adjudicate whether work was actually completed.</p><p>StudioNet funds are test GEN. Until deployment and finalized read-backs exist, this site is a local functional preview, not submission evidence.</p></div></section>
+      <section id="limitations" className="limits wrap"><div><span className="eyebrow">HONEST BOUNDARIES</span><h2>What the firewall does—and doesn’t—prove.</h2></div><div><p>It records whether validators agreed that changed wording materially affects an obligation, and it enforces approval generations and exact pre-funded amounts. It does <b>not</b> prove physical delivery, authenticate a document issuer, or adjudicate whether work was actually completed.</p><p>The live proof uses StudioNet test GEN and script-controlled test wallets. Browser-wallet and mobile-wallet actions have not been verified end to end, and this is not a production-funds security audit.</p></div></section>
     </main>
     <footer className="site-footer"><div className="wrap"><span>ChangeOrder Firewall</span><span>Built for verifiable amendment impact on GenLayer.</span><a href="https://docs.genlayer.com/developers/intelligent-contracts/equivalence-principle" target="_blank" rel="noreferrer">GenLayer documentation ↗</a></div></footer>
   </div>;

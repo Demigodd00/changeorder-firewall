@@ -74,11 +74,41 @@ async function writeStage(state, stage, account, method, args = [], value = 0n) 
     save(journalPath, state);
     console.log(`submitted_${stage} ${hash}`);
   }
-  await receiptFor(state.steps[stage].hash, account);
+  const receipt = await receiptFor(state.steps[stage].hash, account);
   state.steps[stage].status = "FINALIZED_SUCCESS";
+  state.steps[stage].triggered = receipt.triggered_transactions || [];
   state.steps[stage].readBack = await finalizedState(state.address);
   save(journalPath, state);
   return state.steps[stage].readBack;
+}
+
+async function expectedFailureStage(state, stage, account, method, args = []) {
+  state.steps ||= {};
+  state.steps[stage] ||= {};
+  if (state.steps[stage].status === "EXPECTED_FAILURE") return state.steps[stage].readBack;
+  const before = await finalizedState(state.address);
+  if (!state.steps[stage].hash) {
+    const hash = await client(account).writeContract({ address: state.address, functionName: method, args });
+    state.steps[stage].hash = hash;
+    save(journalPath, state);
+    console.log(`submitted_${stage} ${hash}`);
+  }
+  await client(account).waitForTransactionReceipt({ hash: state.steps[stage].hash, ...wait });
+  const receipt = await client(account).getTransaction({ hash: state.steps[stage].hash });
+  const leader = receipt.consensus_data?.leader_receipt?.[0];
+  if (receipt.statusName !== TransactionStatus.FINALIZED || !leader || leader.execution_result === "SUCCESS") {
+    throw new Error("Expected failure was not a finalized execution failure.");
+  }
+  const after = await finalizedState(state.address);
+  if (JSON.stringify(before) !== JSON.stringify(after)) throw new Error("Failed transaction changed order state.");
+  state.steps[stage].status = "EXPECTED_FAILURE";
+  state.steps[stage].execution = leader.execution_result;
+  state.steps[stage].error = String(leader.error || "").slice(0, 500);
+  state.steps[stage].stateUnchanged = true;
+  state.steps[stage].readBack = after;
+  save(journalPath, state);
+  console.log(`expected_failure_${stage} ${receipt.statusName} ${leader.execution_result} ${state.steps[stage].error}`);
+  return after;
 }
 
 async function main() {
@@ -124,7 +154,81 @@ async function main() {
     }
     return;
   }
-  if (command !== "deploy") throw new Error("Use init, status, deploy, screen, or activate.");
+  if (command === "amend") {
+    const state = journal();
+    if (!state.address || state.sourceBlob !== pushedSource().blob) throw new Error("Deployment or source is not verified.");
+    const before = await finalizedState(state.address);
+    if (state.steps?.apply_material_T1?.hash) {
+      const applied = await writeStage(state, "apply_material_T1", accounts.buyer, "finalize_amendment");
+      const generations = applied.terms.map(term => term.generation);
+      if (applied.revision !== 1 || JSON.stringify(generations) !== JSON.stringify([1, 0, 1])) throw new Error("Saved amendment does not match current finalized state.");
+      console.log(`applied_generations ${JSON.stringify(generations)}`);
+      return;
+    }
+    if (before.status !== "ACTIVE" || before.terms.some(term => term.approval_generation !== term.generation)) throw new Error("All initial approvals must be current first.");
+    const newText = "Deliver a CSV export containing id, date and SKU columns; quantity and price columns are not required.";
+    const proposed = await writeStage(state, "propose_material_T1", accounts.buyer, "propose_amendment", [JSON.stringify([{ id: "T1", new_text: newText }])]);
+    if (proposed.amendment?.phase !== "PROPOSED") throw new Error("Amendment proposal did not open.");
+    const signed = await writeStage(state, "sign_material_T1", accounts.supplier, "sign_amendment");
+    if (signed.amendment?.phase !== "REVIEW") throw new Error("Amendment review did not open.");
+    const screened = await writeStage(state, "screen_material_T1", accounts.buyer, "screen_edit", [0]);
+    if (screened.amendment?.edits?.[0]?.screen !== "OBSERVABLE") throw new Error("Unexpected amendment screening judgment; do not retry.");
+    const judged = await writeStage(state, "judge_material_T1", accounts.buyer, "judge_edit", [0]);
+    const verdict = judged.amendment?.edits?.[0]?.material;
+    console.log(`materiality_verdict ${verdict}`);
+    if (verdict !== "MATERIAL") throw new Error("Unexpected materiality judgment; investigate before finalizing.");
+    const applied = await writeStage(state, "apply_material_T1", accounts.buyer, "finalize_amendment");
+    const generations = applied.terms.map(term => term.generation);
+    if (applied.revision !== 1 || JSON.stringify(generations) !== JSON.stringify([1, 0, 1])) throw new Error("Dependency propagation did not match the expected [1,0,1] generations.");
+    console.log(`applied_generations ${JSON.stringify(generations)}`);
+    return;
+  }
+  if (command === "settle") {
+    const state = journal();
+    if (!state.address || state.sourceBlob !== pushedSource().blob) throw new Error("Deployment or source is not verified.");
+    const before = await finalizedState(state.address);
+    if (state.supplierCreditAfterWithdraw === "0" && state.steps?.withdraw_supplier_credit?.status === "FINALIZED_SUCCESS") {
+      console.log(`supplier_withdrawal balance_before=${state.supplierBalanceBeforeWithdraw} balance_after=${state.supplierBalanceAfterWithdraw}`);
+      return;
+    }
+    if (before.revision !== 1 || JSON.stringify(before.terms.map(term => term.generation)) !== JSON.stringify([1, 0, 1])) throw new Error("Material amendment not verified.");
+    await expectedFailureStage(state, "stale_T1_claim", accounts.supplier, "claim_term", [0]);
+    const independent = await writeStage(state, "claim_unaffected_T2", accounts.supplier, "claim_term", [1]);
+    if (!independent.terms[1].claimed || independent.reserved_wei !== "2000000000000000") throw new Error("Unaffected T2 did not settle as expected.");
+    for (const index of [0, 2]) {
+      const approved = await writeStage(state, `reapprove_T${index + 1}_v1`, accounts.buyer, "approve_term", [index]);
+      if (approved.terms[index].approval_generation !== 1) throw new Error("Fresh approval did not bind to generation 1.");
+      const claimed = await writeStage(state, `claim_T${index + 1}_v1`, accounts.supplier, "claim_term", [index]);
+      if (!claimed.terms[index].claimed) throw new Error("Freshly approved term did not settle.");
+    }
+    if (!state.steps?.withdraw_supplier_credit?.hash) {
+      const creditBefore = await client().readContract({ address: state.address, functionName: "credit_of", args: [accounts.supplier.address], transactionHashVariant: TransactionHashVariant.LATEST_FINAL });
+      if (String(creditBefore) !== "3000000000000000") throw new Error("Supplier pull credit is not exactly 0.003 GEN.");
+      state.supplierCreditBeforeWithdraw = String(creditBefore);
+      state.supplierBalanceBeforeWithdraw = String(await client().getBalance({ address: accounts.supplier.address }));
+      save(journalPath, state);
+    }
+    const withdrawn = await writeStage(state, "withdraw_supplier_credit", accounts.supplier, "withdraw_credit");
+    if (withdrawn.reserved_wei !== "0") throw new Error("Reserved balance was not exhausted.");
+    state.withdrawalChildren ||= [];
+    for (const hash of state.steps.withdraw_supplier_credit.triggered || []) {
+      if (state.withdrawalChildren.some(child => child.hash === hash)) continue;
+      await client(accounts.supplier).waitForTransactionReceipt({ hash, ...wait });
+      const child = await client(accounts.supplier).getTransaction({ hash });
+      if (child.statusName !== TransactionStatus.FINALIZED) throw new Error("Withdrawal child transfer did not finalize.");
+      state.withdrawalChildren.push({ hash, status: child.statusName });
+      save(journalPath, state);
+    }
+    state.supplierCreditAfterWithdraw = String(await client().readContract({ address: state.address, functionName: "credit_of", args: [accounts.supplier.address], transactionHashVariant: TransactionHashVariant.LATEST_FINAL }));
+    state.supplierBalanceAfterWithdraw = String(await client().getBalance({ address: accounts.supplier.address }));
+    save(journalPath, state);
+    if (state.supplierCreditAfterWithdraw !== "0" || BigInt(state.supplierBalanceAfterWithdraw) - BigInt(state.supplierBalanceBeforeWithdraw) !== 3000000000000000n) {
+      throw new Error("Pull credit or wallet balance did not settle to the exact 0.003 GEN payout.");
+    }
+    console.log(`supplier_withdrawal credit=${state.supplierCreditAfterWithdraw} balance_before=${state.supplierBalanceBeforeWithdraw} balance_after=${state.supplierBalanceAfterWithdraw}`);
+    return;
+  }
+  if (command !== "deploy") throw new Error("Use init, status, deploy, screen, activate, amend, or settle.");
   const { head, blob, source } = pushedSource();
   const state = journal();
   if (state.commit && state.commit !== head) {

@@ -1,0 +1,538 @@
+{
+  "schema": "changeorder-firewall-live-proof-v1",
+  "network": "GenLayer StudioNet",
+  "chainId": 61999,
+  "contract": {
+    "address": "0xbb76b3A5af5328677cAb21781f1e70a7e2F4FE87",
+    "explorer": "https://explorer-studio.genlayer.com/address/0xbb76b3A5af5328677cAb21781f1e70a7e2F4FE87",
+    "deploymentHash": "0xa323779121719f4906f1d8b8235c40f8de9dc1be50d047a5be9091cf7ec3555e",
+    "deploymentExplorer": "https://explorer-studio.genlayer.com/tx/0xa323779121719f4906f1d8b8235c40f8de9dc1be50d047a5be9091cf7ec3555e",
+    "deploymentStatus": "FINALIZED_SUCCESS",
+    "sourceCommit": "7fdf247e30e7d0df1e418d5ab413267ec6a2acc2",
+    "sourceGitBlob": "ac4966335fe7a82ad22df9ea09bce125a5fee052",
+    "sourceMatchesDeployedCode": true,
+    "pinnedRunner": "# { \"Depends\": \"py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6\" }"
+  },
+  "participants": {
+    "buyer": "0xa2b378092576D931B610a7f842EE7c9C21e2A088",
+    "supplier": "0x7F2D3C7340ed34541A8951575FaAFc7378cC5678",
+    "testWalletsOnly": true
+  },
+  "scenario": "A signed T1 CSV-schema amendment removes required columns. T3 depends on T1; T2 is independent. Each term has a fixed 0.001 test GEN tranche.",
+  "transactions": {
+    "check_T1": {
+      "hash": "0x7e933469328f28c7ca71577a4b91197cb5ff5c30027e228d972b96d09c5f1577",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x7e933469328f28c7ca71577a4b91197cb5ff5c30027e228d972b96d09c5f1577",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "check_T2": {
+      "hash": "0x9786cdeefccfc11396082ff3ef09ad1a38a6077c5b4fbf20291286e8c4859bad",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x9786cdeefccfc11396082ff3ef09ad1a38a6077c5b4fbf20291286e8c4859bad",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "check_T3": {
+      "hash": "0xc83ce09bd02b82b778aae5ca2f5ba35a391acf3e9ae406bd0fba3a8e77f8a2c2",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xc83ce09bd02b82b778aae5ca2f5ba35a391acf3e9ae406bd0fba3a8e77f8a2c2",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "fund_exact": {
+      "hash": "0x210fb9e5497aeca2691887ad348ea9c6633196b518851822c24b55f0e581ec73",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x210fb9e5497aeca2691887ad348ea9c6633196b518851822c24b55f0e581ec73",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "supplier_accept": {
+      "hash": "0x436b0efd23bff81a32d8280286943d49374d5ef285a7b385d3b82dbb715606ae",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x436b0efd23bff81a32d8280286943d49374d5ef285a7b385d3b82dbb715606ae",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "approve_T1_v0": {
+      "hash": "0xdcfb98d13162a82ce5f180f7f2b894201e6ceb33dda8f3547310479b9b0b1436",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xdcfb98d13162a82ce5f180f7f2b894201e6ceb33dda8f3547310479b9b0b1436",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "approve_T2_v0": {
+      "hash": "0x2ddf8449de284807185d109a8338dabc2a0a678a32181f2cec30a6c45f05bdd6",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x2ddf8449de284807185d109a8338dabc2a0a678a32181f2cec30a6c45f05bdd6",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "approve_T3_v0": {
+      "hash": "0x494a5f8e2babe5c754dd4f46ece916971be85fb751ebbad0bba17c8d995cbb75",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x494a5f8e2babe5c754dd4f46ece916971be85fb751ebbad0bba17c8d995cbb75",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "propose_material_T1": {
+      "hash": "0xfd1f95cd033abfdbebfe6a5d7940c47279bd7b5eab3fa11e6cb72b0c56308b68",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xfd1f95cd033abfdbebfe6a5d7940c47279bd7b5eab3fa11e6cb72b0c56308b68",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "sign_material_T1": {
+      "hash": "0xf02251a0151d6a74f21199ce62de7a9b2baef323b595fff6983437a4b7c457bd",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xf02251a0151d6a74f21199ce62de7a9b2baef323b595fff6983437a4b7c457bd",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "screen_material_T1": {
+      "hash": "0x6eefe052b6671baf4f521552ca8f748f26a7d6f66f256f2392b7fc8232a551d8",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x6eefe052b6671baf4f521552ca8f748f26a7d6f66f256f2392b7fc8232a551d8",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "judge_material_T1": {
+      "hash": "0xec1bb68ecc86a30431f56592209e92b4e67efe7f7073516594daede2948a58ec",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xec1bb68ecc86a30431f56592209e92b4e67efe7f7073516594daede2948a58ec",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "apply_material_T1": {
+      "hash": "0x03222d2d5f713653cfb5d854d5a57ccdbeb3a23a05f8cdeb081d1f0aef4643e6",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x03222d2d5f713653cfb5d854d5a57ccdbeb3a23a05f8cdeb081d1f0aef4643e6",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "stale_T1_claim": {
+      "hash": "0xd28d3170423c70dfd807ad784abae294d5de082cd824d2d6145d335b15102933",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xd28d3170423c70dfd807ad784abae294d5de082cd824d2d6145d335b15102933",
+      "status": "FINALIZED_EXECUTION_ERROR",
+      "execution": "ERROR",
+      "stateUnchanged": true
+    },
+    "claim_unaffected_T2": {
+      "hash": "0xee20dfcf52b6d9778a4fedb308d11203552a94a735b699e5dc6b83bb3a53eb3a",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xee20dfcf52b6d9778a4fedb308d11203552a94a735b699e5dc6b83bb3a53eb3a",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "reapprove_T1_v1": {
+      "hash": "0xd792c7342dfbe445e4d06ed3cb308a376053e8c0b96b9d4b2255f7ce6cebe1ea",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xd792c7342dfbe445e4d06ed3cb308a376053e8c0b96b9d4b2255f7ce6cebe1ea",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "claim_T1_v1": {
+      "hash": "0xbb472a370ec3d7f6cf426533a5733308bbbf792b532a71e8a00d20ba709d1fd6",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xbb472a370ec3d7f6cf426533a5733308bbbf792b532a71e8a00d20ba709d1fd6",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "reapprove_T3_v1": {
+      "hash": "0x0d878795703c37aa3789a88001abd9a1f6c34d940a077c1b44fcd6b924b319d8",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x0d878795703c37aa3789a88001abd9a1f6c34d940a077c1b44fcd6b924b319d8",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "claim_T3_v1": {
+      "hash": "0x2b71e4bbd19e5d9bbf2e75d3477f1f419d245bbff398952af8f7b4cb3ab43d61",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x2b71e4bbd19e5d9bbf2e75d3477f1f419d245bbff398952af8f7b4cb3ab43d61",
+      "status": "FINALIZED_SUCCESS"
+    },
+    "withdraw_supplier_credit": {
+      "hash": "0xdfb4cb806bc51b0b6fb2deae7544e3fdd3c14b5e9b27a681fd1555d0150b17ce",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xdfb4cb806bc51b0b6fb2deae7544e3fdd3c14b5e9b27a681fd1555d0150b17ce",
+      "status": "FINALIZED_SUCCESS"
+    }
+  },
+  "snapshots": {
+    "initial": {
+      "accept_deadline": 0,
+      "agreement_hash": "723bed0fa02fd5af557bfa982bdcbb92d00fb37c06f9c0157986898f4ce724fb",
+      "amendment": null,
+      "buyer": "0xa2b378092576d931b610a7f842ee7c9c21e2a088",
+      "check_deadline": 1792597535,
+      "checks": [
+        "PENDING",
+        "PENDING",
+        "PENDING"
+      ],
+      "claim_deadline": 0,
+      "created_at": 1792424735,
+      "fund_deadline": 0,
+      "history": [],
+      "reserved_wei": "0",
+      "revision": 0,
+      "settle_deadline": 0,
+      "status": "CHECKING",
+      "supplier": "0x7f2d3c7340ed34541a8951575faafc7378cc5678",
+      "terms": [
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": -1,
+          "claimed": false,
+          "generation": 0,
+          "id": "T1",
+          "reapproval_deadline": 0,
+          "refunded": false,
+          "requires": [],
+          "text": "Deliver a CSV export containing id, date, SKU, quantity and price columns.",
+          "text_hash": "aef45f8434547855838fef72f053024d05554f542c1cc93516618e9cec017d6b"
+        },
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": -1,
+          "claimed": false,
+          "generation": 0,
+          "id": "T2",
+          "reapproval_deadline": 0,
+          "refunded": false,
+          "requires": [],
+          "text": "Deliver a Markdown setup guide with installation and troubleshooting sections.",
+          "text_hash": "e5809158a1ad1a00977238b14424428a0de281355b2b659317c30b6cdb329a4c"
+        },
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": -1,
+          "claimed": false,
+          "generation": 0,
+          "id": "T3",
+          "reapproval_deadline": 0,
+          "refunded": false,
+          "requires": [
+            "T1"
+          ],
+          "text": "Deliver an integration package that imports the T1 CSV schema.",
+          "text_hash": "5a9b56fce466cb41c227ba0c6f5300432e68ecdfa65b4fb4719c78037e56baee"
+        }
+      ],
+      "title": "Export and integration package",
+      "total_wei": "3000000000000000",
+      "version": "changeorder-firewall.v1"
+    },
+    "afterMaterialAmendment": {
+      "accept_deadline": 1793030043,
+      "agreement_hash": "ec524242ade6745ffa3cc25b7ec9246d625896a8e9c1ea589018cd63d992cb78",
+      "amendment": null,
+      "buyer": "0xa2b378092576d931b610a7f842ee7c9c21e2a088",
+      "check_deadline": 1792597535,
+      "checks": [
+        "OBSERVABLE",
+        "OBSERVABLE",
+        "OBSERVABLE"
+      ],
+      "claim_deadline": 1795622089,
+      "created_at": 1792424735,
+      "fund_deadline": 1793029860,
+      "history": [
+        {
+          "affected": [
+            "T1",
+            "T3"
+          ],
+          "edits": [
+            {
+              "id": "T1",
+              "material": "MATERIAL",
+              "new_hash": "33a41bc11b9678e73d74a38c622c9f6036db8ce37ce844947925b47619b4cf6d",
+              "old_hash": "aef45f8434547855838fef72f053024d05554f542c1cc93516618e9cec017d6b"
+            }
+          ],
+          "outcome": "APPLIED",
+          "proposal_hash": "730abc75382d3be13c250431affc78e3db1e3f2ed66adeac25e4d69e92549b16",
+          "revision": 1
+        }
+      ],
+      "reserved_wei": "3000000000000000",
+      "revision": 1,
+      "settle_deadline": 1795017289,
+      "status": "ACTIVE",
+      "supplier": "0x7f2d3c7340ed34541a8951575faafc7378cc5678",
+      "terms": [
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": 0,
+          "claimed": false,
+          "generation": 1,
+          "id": "T1",
+          "reapproval_deadline": 1793046988,
+          "refunded": false,
+          "requires": [],
+          "text": "Deliver a CSV export containing id, date and SKU columns; quantity and price columns are not required.",
+          "text_hash": "33a41bc11b9678e73d74a38c622c9f6036db8ce37ce844947925b47619b4cf6d"
+        },
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": 0,
+          "claimed": false,
+          "generation": 0,
+          "id": "T2",
+          "reapproval_deadline": 0,
+          "refunded": false,
+          "requires": [],
+          "text": "Deliver a Markdown setup guide with installation and troubleshooting sections.",
+          "text_hash": "e5809158a1ad1a00977238b14424428a0de281355b2b659317c30b6cdb329a4c"
+        },
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": 0,
+          "claimed": false,
+          "generation": 1,
+          "id": "T3",
+          "reapproval_deadline": 1793046988,
+          "refunded": false,
+          "requires": [
+            "T1"
+          ],
+          "text": "Deliver an integration package that imports the T1 CSV schema.",
+          "text_hash": "5a9b56fce466cb41c227ba0c6f5300432e68ecdfa65b4fb4719c78037e56baee"
+        }
+      ],
+      "title": "Export and integration package",
+      "total_wei": "3000000000000000",
+      "version": "changeorder-firewall.v1"
+    },
+    "afterRejectedStaleClaim": {
+      "accept_deadline": 1793030043,
+      "agreement_hash": "ec524242ade6745ffa3cc25b7ec9246d625896a8e9c1ea589018cd63d992cb78",
+      "amendment": null,
+      "buyer": "0xa2b378092576d931b610a7f842ee7c9c21e2a088",
+      "check_deadline": 1792597535,
+      "checks": [
+        "OBSERVABLE",
+        "OBSERVABLE",
+        "OBSERVABLE"
+      ],
+      "claim_deadline": 1795622089,
+      "created_at": 1792424735,
+      "fund_deadline": 1793029860,
+      "history": [
+        {
+          "affected": [
+            "T1",
+            "T3"
+          ],
+          "edits": [
+            {
+              "id": "T1",
+              "material": "MATERIAL",
+              "new_hash": "33a41bc11b9678e73d74a38c622c9f6036db8ce37ce844947925b47619b4cf6d",
+              "old_hash": "aef45f8434547855838fef72f053024d05554f542c1cc93516618e9cec017d6b"
+            }
+          ],
+          "outcome": "APPLIED",
+          "proposal_hash": "730abc75382d3be13c250431affc78e3db1e3f2ed66adeac25e4d69e92549b16",
+          "revision": 1
+        }
+      ],
+      "reserved_wei": "3000000000000000",
+      "revision": 1,
+      "settle_deadline": 1795017289,
+      "status": "ACTIVE",
+      "supplier": "0x7f2d3c7340ed34541a8951575faafc7378cc5678",
+      "terms": [
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": 0,
+          "claimed": false,
+          "generation": 1,
+          "id": "T1",
+          "reapproval_deadline": 1793046988,
+          "refunded": false,
+          "requires": [],
+          "text": "Deliver a CSV export containing id, date and SKU columns; quantity and price columns are not required.",
+          "text_hash": "33a41bc11b9678e73d74a38c622c9f6036db8ce37ce844947925b47619b4cf6d"
+        },
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": 0,
+          "claimed": false,
+          "generation": 0,
+          "id": "T2",
+          "reapproval_deadline": 0,
+          "refunded": false,
+          "requires": [],
+          "text": "Deliver a Markdown setup guide with installation and troubleshooting sections.",
+          "text_hash": "e5809158a1ad1a00977238b14424428a0de281355b2b659317c30b6cdb329a4c"
+        },
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": 0,
+          "claimed": false,
+          "generation": 1,
+          "id": "T3",
+          "reapproval_deadline": 1793046988,
+          "refunded": false,
+          "requires": [
+            "T1"
+          ],
+          "text": "Deliver an integration package that imports the T1 CSV schema.",
+          "text_hash": "5a9b56fce466cb41c227ba0c6f5300432e68ecdfa65b4fb4719c78037e56baee"
+        }
+      ],
+      "title": "Export and integration package",
+      "total_wei": "3000000000000000",
+      "version": "changeorder-firewall.v1"
+    },
+    "afterUnaffectedT2Claim": {
+      "accept_deadline": 1793030043,
+      "agreement_hash": "ec524242ade6745ffa3cc25b7ec9246d625896a8e9c1ea589018cd63d992cb78",
+      "amendment": null,
+      "buyer": "0xa2b378092576d931b610a7f842ee7c9c21e2a088",
+      "check_deadline": 1792597535,
+      "checks": [
+        "OBSERVABLE",
+        "OBSERVABLE",
+        "OBSERVABLE"
+      ],
+      "claim_deadline": 1795622089,
+      "created_at": 1792424735,
+      "fund_deadline": 1793029860,
+      "history": [
+        {
+          "affected": [
+            "T1",
+            "T3"
+          ],
+          "edits": [
+            {
+              "id": "T1",
+              "material": "MATERIAL",
+              "new_hash": "33a41bc11b9678e73d74a38c622c9f6036db8ce37ce844947925b47619b4cf6d",
+              "old_hash": "aef45f8434547855838fef72f053024d05554f542c1cc93516618e9cec017d6b"
+            }
+          ],
+          "outcome": "APPLIED",
+          "proposal_hash": "730abc75382d3be13c250431affc78e3db1e3f2ed66adeac25e4d69e92549b16",
+          "revision": 1
+        }
+      ],
+      "reserved_wei": "2000000000000000",
+      "revision": 1,
+      "settle_deadline": 1795017289,
+      "status": "ACTIVE",
+      "supplier": "0x7f2d3c7340ed34541a8951575faafc7378cc5678",
+      "terms": [
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": 0,
+          "claimed": false,
+          "generation": 1,
+          "id": "T1",
+          "reapproval_deadline": 1793046988,
+          "refunded": false,
+          "requires": [],
+          "text": "Deliver a CSV export containing id, date and SKU columns; quantity and price columns are not required.",
+          "text_hash": "33a41bc11b9678e73d74a38c622c9f6036db8ce37ce844947925b47619b4cf6d"
+        },
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": 0,
+          "claimed": true,
+          "generation": 0,
+          "id": "T2",
+          "reapproval_deadline": 0,
+          "refunded": false,
+          "requires": [],
+          "text": "Deliver a Markdown setup guide with installation and troubleshooting sections.",
+          "text_hash": "e5809158a1ad1a00977238b14424428a0de281355b2b659317c30b6cdb329a4c"
+        },
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": 0,
+          "claimed": false,
+          "generation": 1,
+          "id": "T3",
+          "reapproval_deadline": 1793046988,
+          "refunded": false,
+          "requires": [
+            "T1"
+          ],
+          "text": "Deliver an integration package that imports the T1 CSV schema.",
+          "text_hash": "5a9b56fce466cb41c227ba0c6f5300432e68ecdfa65b4fb4719c78037e56baee"
+        }
+      ],
+      "title": "Export and integration package",
+      "total_wei": "3000000000000000",
+      "version": "changeorder-firewall.v1"
+    },
+    "afterAllClaimsAndWithdrawal": {
+      "accept_deadline": 1793030043,
+      "agreement_hash": "ec524242ade6745ffa3cc25b7ec9246d625896a8e9c1ea589018cd63d992cb78",
+      "amendment": null,
+      "buyer": "0xa2b378092576d931b610a7f842ee7c9c21e2a088",
+      "check_deadline": 1792597535,
+      "checks": [
+        "OBSERVABLE",
+        "OBSERVABLE",
+        "OBSERVABLE"
+      ],
+      "claim_deadline": 1795622089,
+      "created_at": 1792424735,
+      "fund_deadline": 1793029860,
+      "history": [
+        {
+          "affected": [
+            "T1",
+            "T3"
+          ],
+          "edits": [
+            {
+              "id": "T1",
+              "material": "MATERIAL",
+              "new_hash": "33a41bc11b9678e73d74a38c622c9f6036db8ce37ce844947925b47619b4cf6d",
+              "old_hash": "aef45f8434547855838fef72f053024d05554f542c1cc93516618e9cec017d6b"
+            }
+          ],
+          "outcome": "APPLIED",
+          "proposal_hash": "730abc75382d3be13c250431affc78e3db1e3f2ed66adeac25e4d69e92549b16",
+          "revision": 1
+        }
+      ],
+      "reserved_wei": "0",
+      "revision": 1,
+      "settle_deadline": 1795017289,
+      "status": "ACTIVE",
+      "supplier": "0x7f2d3c7340ed34541a8951575faafc7378cc5678",
+      "terms": [
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": 1,
+          "claimed": true,
+          "generation": 1,
+          "id": "T1",
+          "reapproval_deadline": 1793046988,
+          "refunded": false,
+          "requires": [],
+          "text": "Deliver a CSV export containing id, date and SKU columns; quantity and price columns are not required.",
+          "text_hash": "33a41bc11b9678e73d74a38c622c9f6036db8ce37ce844947925b47619b4cf6d"
+        },
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": 0,
+          "claimed": true,
+          "generation": 0,
+          "id": "T2",
+          "reapproval_deadline": 0,
+          "refunded": false,
+          "requires": [],
+          "text": "Deliver a Markdown setup guide with installation and troubleshooting sections.",
+          "text_hash": "e5809158a1ad1a00977238b14424428a0de281355b2b659317c30b6cdb329a4c"
+        },
+        {
+          "amount_wei": "1000000000000000",
+          "approval_generation": 1,
+          "claimed": true,
+          "generation": 1,
+          "id": "T3",
+          "reapproval_deadline": 1793046988,
+          "refunded": false,
+          "requires": [
+            "T1"
+          ],
+          "text": "Deliver an integration package that imports the T1 CSV schema.",
+          "text_hash": "5a9b56fce466cb41c227ba0c6f5300432e68ecdfa65b4fb4719c78037e56baee"
+        }
+      ],
+      "title": "Export and integration package",
+      "total_wei": "3000000000000000",
+      "version": "changeorder-firewall.v1"
+    }
+  },
+  "payout": {
+    "supplierCreditBeforeWithdrawWei": "3000000000000000",
+    "supplierCreditAfterWithdrawWei": "0",
+    "supplierWalletBeforeWei": "0",
+    "supplierWalletAfterWei": "3000000000000000",
+    "childTransfers": [
+      {
+        "hash": "0xe8cf0726acd3c87f31555199607bfcfbd12bdb770fca8998a4918593a83ed452",
+        "explorer": "https://explorer-studio.genlayer.com/tx/0xe8cf0726acd3c87f31555199607bfcfbd12bdb770fca8998a4918593a83ed452",
+        "status": "FINALIZED"
+      }
+    ]
+  },
+  "limits": [
+    "The buyer's approval attests acceptance; the contract does not independently prove physical delivery or supplier identity.",
+    "This proof uses script-controlled test wallets. Browser-wallet and mobile-wallet interaction have not been verified end to end.",
+    "StudioNet uses test GEN; this is not a production-funds security audit."
+  ]
+}
