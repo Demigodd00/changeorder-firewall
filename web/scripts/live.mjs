@@ -42,7 +42,8 @@ function pushedSource() {
   const committed = execFileSync("git", ["show", "HEAD:contracts/changeorder_firewall.py"], { cwd: repo });
   const working = readFileSync(sourcePath);
   if (!working.equals(committed)) throw new Error("Working contract bytes differ from the pushed Git blob.");
-  return { head, source: working.toString("utf8") };
+  const blob = execFileSync("git", ["rev-parse", "HEAD:contracts/changeorder_firewall.py"], { cwd: repo, encoding: "utf8" }).trim();
+  return { head, blob, source: working.toString("utf8") };
 }
 
 async function receiptFor(tx, account) {
@@ -70,10 +71,14 @@ async function main() {
     return;
   }
   if (command !== "deploy") throw new Error("Use init, status, or deploy.");
-  const { head, source } = pushedSource();
+  const { head, blob, source } = pushedSource();
   const state = journal();
-  if (state.commit && state.commit !== head) throw new Error("Journal belongs to another commit; reconcile it first.");
-  state.commit = head;
+  if (state.commit && state.commit !== head) {
+    const originalBlob = execFileSync("git", ["rev-parse", `${state.commit}:contracts/changeorder_firewall.py`], { cwd: repo, encoding: "utf8" }).trim();
+    if (originalBlob !== blob) throw new Error("Contract source changed since submission; reconcile before any further transaction.");
+  }
+  state.commit ||= head;
+  state.sourceBlob = blob;
   state.buyer = accounts.buyer.address;
   state.supplier = accounts.supplier.address;
   const terms = [
