@@ -65,6 +65,9 @@ async function finalizedState(address) {
 async function writeStage(state, stage, account, method, args = [], value = 0n) {
   state.steps ||= {};
   state.steps[stage] ||= {};
+  if (state.steps[stage].status === "FINALIZED_SUCCESS" && state.steps[stage].readBack) {
+    return state.steps[stage].readBack;
+  }
   if (!state.steps[stage].hash) {
     const hash = await client(account).writeContract({ address: state.address, functionName: method, args, value });
     state.steps[stage].hash = hash;
@@ -101,7 +104,27 @@ async function main() {
     }
     return;
   }
-  if (command !== "deploy") throw new Error("Use init, status, deploy, or screen.");
+  if (command === "activate") {
+    const state = journal();
+    if (!state.address || state.deployStatus !== "FINALIZED_SUCCESS") throw new Error("Finalize the deployment first.");
+    if (state.sourceBlob !== pushedSource().blob) throw new Error("Contract source changed since deployment.");
+    const before = await finalizedState(state.address);
+    if (!before.checks.every(verdict => verdict === "OBSERVABLE")) throw new Error("Screening has not passed for every term.");
+    const total = BigInt(before.total_wei);
+    const funded = await writeStage(state, "fund_exact", accounts.buyer, "fund", [], total);
+    if (funded.status !== "AWAITING_SUPPLIER" || funded.reserved_wei !== String(total)) throw new Error("Funding did not reserve the exact amount.");
+    console.log(`funded_wei ${funded.reserved_wei}`);
+    const accepted = await writeStage(state, "supplier_accept", accounts.supplier, "accept");
+    if (accepted.status !== "ACTIVE") throw new Error("Supplier acceptance did not activate the order.");
+    console.log(`activated_order ${state.address}`);
+    for (let index = 0; index < 3; index++) {
+      const after = await writeStage(state, `approve_T${index + 1}_v0`, accounts.buyer, "approve_term", [index]);
+      if (after.terms[index].approval_generation !== after.terms[index].generation) throw new Error("Approval did not bind to the current generation.");
+      console.log(`approved_T${index + 1}_generation ${after.terms[index].generation}`);
+    }
+    return;
+  }
+  if (command !== "deploy") throw new Error("Use init, status, deploy, screen, or activate.");
   const { head, blob, source } = pushedSource();
   const state = journal();
   if (state.commit && state.commit !== head) {
