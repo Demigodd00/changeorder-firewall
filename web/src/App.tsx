@@ -132,6 +132,7 @@ export default function App({ mobileWalletsEnabled }: { mobileWalletsEnabled: bo
   async function createOrder(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setCreateError("");
+    let submitted = false;
     if (!walletAddress || !connector || walletStatus !== "connected" || chainId !== studioChainId) {
       setCreateError("Connect a wallet on GenLayer StudioNet to deploy an order."); return;
     }
@@ -159,7 +160,7 @@ export default function App({ mobileWalletsEnabled }: { mobileWalletsEnabled: bo
         supplier: draftSupplier,
         title: draftTitle.trim(),
         termsJson: JSON.stringify(terms),
-        onSubmitted: tx => { setCreateTx(tx); setCreateNotice("Deployment submitted; awaiting finalized receipt."); },
+        onSubmitted: tx => { submitted = true; setCreateTx(tx); setCreateNotice("Deployment submitted; awaiting finalized receipt."); },
       });
       setCreateTx("");
       setCreateNotice(`Order deployed at ${deployed}. Review its finalized state below before funding.`);
@@ -171,7 +172,7 @@ export default function App({ mobileWalletsEnabled }: { mobileWalletsEnabled: bo
       window.history.replaceState({}, "", `${window.location.pathname}?${query.toString()}`);
     } catch (reason) {
       setCreateError(errorText(reason));
-      setCreateNotice(createTx ? "A deployment may have been submitted. Check its explorer receipt before retrying." : "No finalized deployment was confirmed.");
+      setCreateNotice(submitted ? "A deployment was submitted. Check its explorer receipt before retrying." : "No finalized deployment was confirmed.");
     } finally { setBusy(false); }
   }
 

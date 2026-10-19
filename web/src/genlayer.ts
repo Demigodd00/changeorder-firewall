@@ -79,9 +79,11 @@ export async function submitWrite(input: {
   await verifyWallet(input.provider, input.walletAddress);
   const hash = await client.writeContract(call);
   input.onSubmitted(hash);
-  const receipt = await client.waitForTransactionReceipt({ hash, status: TransactionStatus.FINALIZED });
-  if (receipt.statusName !== TransactionStatus.FINALIZED || receipt.txExecutionResultName !== ExecutionResult.FINISHED_WITH_RETURN) {
-    throw new Error(`Transaction finalized without successful execution: ${receipt.statusName} / ${receipt.txExecutionResultName}. Do not resubmit until you inspect it.`);
+  await client.waitForTransactionReceipt({ hash, status: TransactionStatus.FINALIZED });
+  const receipt = await client.getTransaction({ hash });
+  const leaderExecution = receipt.consensus_data?.leader_receipt?.[0]?.execution_result;
+  if (receipt.statusName !== TransactionStatus.FINALIZED || leaderExecution !== "SUCCESS" || (receipt.txExecutionResultName && receipt.txExecutionResultName !== ExecutionResult.FINISHED_WITH_RETURN)) {
+    throw new Error(`Transaction did not finalize successfully: ${receipt.statusName} / ${leaderExecution || receipt.txExecutionResultName}. Do not resubmit until you inspect it.`);
   }
 }
 
@@ -105,9 +107,11 @@ export async function deployOrder(input: {
   });
   if (!/^0x[0-9a-fA-F]{64}$/.test(hash)) throw new Error("Wallet did not return a valid deployment transaction hash.");
   input.onSubmitted(hash);
-  const receipt = await client.waitForTransactionReceipt({ hash: hash as Hash, status: TransactionStatus.FINALIZED });
-  if (receipt.statusName !== TransactionStatus.FINALIZED || receipt.txExecutionResultName !== ExecutionResult.FINISHED_WITH_RETURN) {
-    throw new Error(`Deployment did not finalize successfully: ${receipt.statusName} / ${receipt.txExecutionResultName}. Inspect the receipt before retrying.`);
+  await client.waitForTransactionReceipt({ hash: hash as Hash, status: TransactionStatus.FINALIZED });
+  const receipt = await client.getTransaction({ hash: hash as Hash });
+  const leaderExecution = receipt.consensus_data?.leader_receipt?.[0]?.execution_result;
+  if (receipt.statusName !== TransactionStatus.FINALIZED || leaderExecution !== "SUCCESS" || (receipt.txExecutionResultName && receipt.txExecutionResultName !== ExecutionResult.FINISHED_WITH_RETURN)) {
+    throw new Error(`Deployment did not finalize successfully: ${receipt.statusName} / ${leaderExecution || receipt.txExecutionResultName}. Inspect the receipt before retrying.`);
   }
   const decoded = receipt.txDataDecoded;
   const deployedAddress = decoded && "contractAddress" in decoded ? decoded.contractAddress : receipt.recipient;

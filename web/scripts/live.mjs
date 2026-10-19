@@ -1,5 +1,5 @@
 import { createAccount, createClient, chains, generatePrivateKey } from "genlayer-js";
-import { ExecutionResult, TransactionHashVariant, TransactionStatus } from "genlayer-js/types";
+import { TransactionHashVariant, TransactionStatus } from "genlayer-js/types";
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -46,11 +46,12 @@ function pushedSource() {
 }
 
 async function receiptFor(tx, account) {
-  const result = await client(account).waitForTransactionReceipt({ hash: tx, ...wait });
+  await client(account).waitForTransactionReceipt({ hash: tx, ...wait });
+  const result = await client(account).getTransaction({ hash: tx });
   const status = result.statusName;
-  const execution = result.txExecutionResultName;
+  const execution = result.consensus_data?.leader_receipt?.[0]?.execution_result;
   console.log(JSON.stringify({ hash: tx, status, execution, recipient: result.recipient }));
-  if (status !== TransactionStatus.FINALIZED || execution !== ExecutionResult.FINISHED_WITH_RETURN) {
+  if (status !== TransactionStatus.FINALIZED || execution !== "SUCCESS") {
     throw new Error("Finalized transaction did not execute successfully; inspect the receipt before retrying.");
   }
   return result;
@@ -92,6 +93,9 @@ async function main() {
   if (!/^0x[0-9a-fA-F]{40}$/.test(state.address || "")) throw new Error("Successful deploy but no address in receipt.");
   state.deployStatus = "FINALIZED_SUCCESS";
   state.initialRead = await client(accounts.buyer).readContract({ address: state.address, functionName: "get_state", args: [], transactionHashVariant: TransactionHashVariant.LATEST_FINAL });
+  const deployedSource = await client(accounts.buyer).getContractCode(state.address);
+  if (deployedSource !== source) throw new Error("On-chain source differs from the pushed Git blob.");
+  state.sourceMatchesGitBlob = true;
   save(journalPath, state);
   console.log(`deployed_contract ${state.address} status=${state.initialRead.status}`);
 }
