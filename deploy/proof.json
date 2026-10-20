@@ -3,22 +3,22 @@
   "network": "GenLayer StudioNet",
   "chainId": 61999,
   "contract": {
-    "address": "0xbb76b3A5af5328677cAb21781f1e70a7e2F4FE87",
-    "explorer": "https://explorer-studio.genlayer.com/address/0xbb76b3A5af5328677cAb21781f1e70a7e2F4FE87",
-    "deploymentHash": "0xa323779121719f4906f1d8b8235c40f8de9dc1be50d047a5be9091cf7ec3555e",
-    "deploymentExplorer": "https://explorer-studio.genlayer.com/tx/0xa323779121719f4906f1d8b8235c40f8de9dc1be50d047a5be9091cf7ec3555e",
+    "address": "0x5206cF2B8414049fB08a866dc1ac3D5c0D2B3037",
+    "explorer": "https://explorer-studio.genlayer.com/address/0x5206cF2B8414049fB08a866dc1ac3D5c0D2B3037",
+    "deploymentHash": "0xdb040cbdf0b6099d8c8d5171bea9ed39ab967556c9d770211e8ecf30e55ea68f",
+    "deploymentExplorer": "https://explorer-studio.genlayer.com/tx/0xdb040cbdf0b6099d8c8d5171bea9ed39ab967556c9d770211e8ecf30e55ea68f",
     "deploymentStatus": "FINALIZED_SUCCESS",
-    "sourceCommit": "7fdf247e30e7d0df1e418d5ab413267ec6a2acc2",
-    "sourceGitBlob": "ac4966335fe7a82ad22df9ea09bce125a5fee052",
+    "sourceCommit": "ce25e284b0878819a8744d33d72ad3006cd7f333",
+    "sourceGitBlob": "845d5613b8081ce520c39310e69a0c88a8ce97c9",
     "sourceMatchesDeployedCode": true,
     "pinnedRunner": "# { \"Depends\": \"py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6\" }",
     "leaderExecution": "SUCCESS",
     "votes": {
-      "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
-      "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "idle",
-      "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
-      "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree",
-      "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "idle"
+      "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "agree",
+      "0x17ac0CaefB18205c737e64ee582c9245A28ca1f9": "idle",
+      "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "idle",
+      "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "agree",
+      "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree"
     }
   },
   "participants": {
@@ -29,265 +29,265 @@
   "scenario": "A signed T1 CSV-schema amendment removes required columns. T3 depends on T1; T2 is independent. Each term has a fixed 0.001 test GEN tranche.",
   "transactions": {
     "check_T1": {
-      "hash": "0x7e933469328f28c7ca71577a4b91197cb5ff5c30027e228d972b96d09c5f1577",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0x7e933469328f28c7ca71577a4b91197cb5ff5c30027e228d972b96d09c5f1577",
-      "status": "FINALIZED_SUCCESS",
-      "leaderExecution": "SUCCESS",
-      "votes": {
-        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "agree",
-        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
-        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "idle",
-        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
-        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "idle"
-      }
-    },
-    "check_T2": {
-      "hash": "0x9786cdeefccfc11396082ff3ef09ad1a38a6077c5b4fbf20291286e8c4859bad",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0x9786cdeefccfc11396082ff3ef09ad1a38a6077c5b4fbf20291286e8c4859bad",
-      "status": "FINALIZED_SUCCESS",
-      "leaderExecution": "SUCCESS",
-      "votes": {
-        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "idle",
-        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
-        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "idle",
-        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree",
-        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree"
-      }
-    },
-    "check_T3": {
-      "hash": "0xc83ce09bd02b82b778aae5ca2f5ba35a391acf3e9ae406bd0fba3a8e77f8a2c2",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0xc83ce09bd02b82b778aae5ca2f5ba35a391acf3e9ae406bd0fba3a8e77f8a2c2",
-      "status": "FINALIZED_SUCCESS",
-      "leaderExecution": "SUCCESS",
-      "votes": {
-        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "idle",
-        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "idle",
-        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree",
-        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree",
-        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
-      }
-    },
-    "fund_exact": {
-      "hash": "0x210fb9e5497aeca2691887ad348ea9c6633196b518851822c24b55f0e581ec73",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0x210fb9e5497aeca2691887ad348ea9c6633196b518851822c24b55f0e581ec73",
-      "status": "FINALIZED_SUCCESS",
-      "leaderExecution": "SUCCESS",
-      "votes": {
-        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
-        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "idle",
-        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
-        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "idle",
-        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
-      }
-    },
-    "supplier_accept": {
-      "hash": "0x436b0efd23bff81a32d8280286943d49374d5ef285a7b385d3b82dbb715606ae",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0x436b0efd23bff81a32d8280286943d49374d5ef285a7b385d3b82dbb715606ae",
-      "status": "FINALIZED_SUCCESS",
-      "leaderExecution": "SUCCESS",
-      "votes": {
-        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "agree",
-        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "idle",
-        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "agree",
-        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
-        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "idle"
-      }
-    },
-    "approve_T1_v0": {
-      "hash": "0xdcfb98d13162a82ce5f180f7f2b894201e6ceb33dda8f3547310479b9b0b1436",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0xdcfb98d13162a82ce5f180f7f2b894201e6ceb33dda8f3547310479b9b0b1436",
-      "status": "FINALIZED_SUCCESS",
-      "leaderExecution": "SUCCESS",
-      "votes": {
-        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "idle",
-        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
-        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
-        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
-        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "agree"
-      }
-    },
-    "approve_T2_v0": {
-      "hash": "0x2ddf8449de284807185d109a8338dabc2a0a678a32181f2cec30a6c45f05bdd6",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0x2ddf8449de284807185d109a8338dabc2a0a678a32181f2cec30a6c45f05bdd6",
-      "status": "FINALIZED_SUCCESS",
-      "leaderExecution": "SUCCESS",
-      "votes": {
-        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "agree",
-        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "idle",
-        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "idle",
-        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "agree",
-        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree"
-      }
-    },
-    "approve_T3_v0": {
-      "hash": "0x494a5f8e2babe5c754dd4f46ece916971be85fb751ebbad0bba17c8d995cbb75",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0x494a5f8e2babe5c754dd4f46ece916971be85fb751ebbad0bba17c8d995cbb75",
-      "status": "FINALIZED_SUCCESS",
-      "leaderExecution": "SUCCESS",
-      "votes": {
-        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "agree",
-        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "agree",
-        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
-        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
-        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
-      }
-    },
-    "propose_material_T1": {
-      "hash": "0xfd1f95cd033abfdbebfe6a5d7940c47279bd7b5eab3fa11e6cb72b0c56308b68",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0xfd1f95cd033abfdbebfe6a5d7940c47279bd7b5eab3fa11e6cb72b0c56308b68",
-      "status": "FINALIZED_SUCCESS",
-      "leaderExecution": "SUCCESS",
-      "votes": {
-        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
-        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
-        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
-        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree",
-        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "idle"
-      }
-    },
-    "sign_material_T1": {
-      "hash": "0xf02251a0151d6a74f21199ce62de7a9b2baef323b595fff6983437a4b7c457bd",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0xf02251a0151d6a74f21199ce62de7a9b2baef323b595fff6983437a4b7c457bd",
-      "status": "FINALIZED_SUCCESS",
-      "leaderExecution": "SUCCESS",
-      "votes": {
-        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
-        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "idle",
-        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "idle",
-        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
-        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
-      }
-    },
-    "screen_material_T1": {
-      "hash": "0x6eefe052b6671baf4f521552ca8f748f26a7d6f66f256f2392b7fc8232a551d8",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0x6eefe052b6671baf4f521552ca8f748f26a7d6f66f256f2392b7fc8232a551d8",
+      "hash": "0x7c67e00dc41d75a5e9b8435410ec919cd5e349cd085e7509989fa8f5bda46e26",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x7c67e00dc41d75a5e9b8435410ec919cd5e349cd085e7509989fa8f5bda46e26",
       "status": "FINALIZED_SUCCESS",
       "leaderExecution": "SUCCESS",
       "votes": {
         "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "idle",
-        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
-        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
-        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "idle",
-        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "agree"
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "agree",
+        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "idle",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree"
       }
     },
-    "judge_material_T1": {
-      "hash": "0xec1bb68ecc86a30431f56592209e92b4e67efe7f7073516594daede2948a58ec",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0xec1bb68ecc86a30431f56592209e92b4e67efe7f7073516594daede2948a58ec",
+    "check_T2": {
+      "hash": "0x2f445583d671e4f0c1c49cf2af6fc08a864d5312c34b62e1b51ba1f3458849db",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x2f445583d671e4f0c1c49cf2af6fc08a864d5312c34b62e1b51ba1f3458849db",
       "status": "FINALIZED_SUCCESS",
       "leaderExecution": "SUCCESS",
       "votes": {
-        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "idle",
         "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "idle",
-        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree",
-        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "idle",
-        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "agree"
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "agree",
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree"
       }
     },
-    "apply_material_T1": {
-      "hash": "0x03222d2d5f713653cfb5d854d5a57ccdbeb3a23a05f8cdeb081d1f0aef4643e6",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0x03222d2d5f713653cfb5d854d5a57ccdbeb3a23a05f8cdeb081d1f0aef4643e6",
+    "check_T3": {
+      "hash": "0xed5edc0229b15feb263a1132ea899075d86c2a982ccfd8f3dd044baa527de09f",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xed5edc0229b15feb263a1132ea899075d86c2a982ccfd8f3dd044baa527de09f",
       "status": "FINALIZED_SUCCESS",
       "leaderExecution": "SUCCESS",
       "votes": {
         "0x17ac0CaefB18205c737e64ee582c9245A28ca1f9": "idle",
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "idle",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree"
+      }
+    },
+    "fund_exact": {
+      "hash": "0xaf332bf68520d61d44e6a69959a54fa15676295000e4cab7e574042aaa876370",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xaf332bf68520d61d44e6a69959a54fa15676295000e4cab7e574042aaa876370",
+      "status": "FINALIZED_SUCCESS",
+      "leaderExecution": "SUCCESS",
+      "votes": {
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "agree",
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "idle",
+        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "agree",
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
+      }
+    },
+    "supplier_accept": {
+      "hash": "0xf1321475131fcb239f282368a100cbd3040bbe21a3dd784d560584b201baf986",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xf1321475131fcb239f282368a100cbd3040bbe21a3dd784d560584b201baf986",
+      "status": "FINALIZED_SUCCESS",
+      "leaderExecution": "SUCCESS",
+      "votes": {
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "agree",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
         "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
         "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
-        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "idle",
         "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree"
       }
     },
+    "approve_T1_v0": {
+      "hash": "0xf2b34fe90859f771ca209d7889a4548844b5bdcc86b10f0fe4825ae20e25d868",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xf2b34fe90859f771ca209d7889a4548844b5bdcc86b10f0fe4825ae20e25d868",
+      "status": "FINALIZED_SUCCESS",
+      "leaderExecution": "SUCCESS",
+      "votes": {
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "agree",
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "idle",
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "idle",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree"
+      }
+    },
+    "approve_T2_v0": {
+      "hash": "0xd3126847db64bf03f4fefa7d4bb8b95dde6ac29a44f61b2bed44dee97b60317b",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xd3126847db64bf03f4fefa7d4bb8b95dde6ac29a44f61b2bed44dee97b60317b",
+      "status": "FINALIZED_SUCCESS",
+      "leaderExecution": "SUCCESS",
+      "votes": {
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree"
+      }
+    },
+    "approve_T3_v0": {
+      "hash": "0x63ff629ab097ae4a94c9e708f4b746629907844061d55b12ddaaaea06435b681",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x63ff629ab097ae4a94c9e708f4b746629907844061d55b12ddaaaea06435b681",
+      "status": "FINALIZED_SUCCESS",
+      "leaderExecution": "SUCCESS",
+      "votes": {
+        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "agree",
+        "0x17ac0CaefB18205c737e64ee582c9245A28ca1f9": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree"
+      }
+    },
+    "propose_material_T1": {
+      "hash": "0x31ffc7c0dfada7e7e3d5136d6aac68e870ebd7ff31121cac97f0509ef768a29d",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x31ffc7c0dfada7e7e3d5136d6aac68e870ebd7ff31121cac97f0509ef768a29d",
+      "status": "FINALIZED_SUCCESS",
+      "leaderExecution": "SUCCESS",
+      "votes": {
+        "0x17ac0CaefB18205c737e64ee582c9245A28ca1f9": "agree",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "agree",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "idle",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "idle"
+      }
+    },
+    "sign_material_T1": {
+      "hash": "0x1a4dd903236c9e6bdb41d4b811abcfdd41c64c7ed88a3697e44921f14aa4db3a",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x1a4dd903236c9e6bdb41d4b811abcfdd41c64c7ed88a3697e44921f14aa4db3a",
+      "status": "FINALIZED_SUCCESS",
+      "leaderExecution": "SUCCESS",
+      "votes": {
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "idle",
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "idle",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree"
+      }
+    },
+    "screen_material_T1": {
+      "hash": "0xc781410c12e2ec5d808d7541f9fed45cabaf29e1dc94048e17245e50f1b52d0d",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xc781410c12e2ec5d808d7541f9fed45cabaf29e1dc94048e17245e50f1b52d0d",
+      "status": "FINALIZED_SUCCESS",
+      "leaderExecution": "SUCCESS",
+      "votes": {
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "agree",
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "idle",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "idle",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
+      }
+    },
+    "judge_material_T1": {
+      "hash": "0x9c4a9783167b67df1cba06af30ee5e63d59dd4396c3c5f4c95d836212e25cd23",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x9c4a9783167b67df1cba06af30ee5e63d59dd4396c3c5f4c95d836212e25cd23",
+      "status": "FINALIZED_SUCCESS",
+      "leaderExecution": "SUCCESS",
+      "votes": {
+        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "agree",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "idle",
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "idle",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree"
+      }
+    },
+    "apply_material_T1": {
+      "hash": "0x645cfdb212fd0297d223430e630afadb47c05ae5136e8bf29390e43544107a9b",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x645cfdb212fd0297d223430e630afadb47c05ae5136e8bf29390e43544107a9b",
+      "status": "FINALIZED_SUCCESS",
+      "leaderExecution": "SUCCESS",
+      "votes": {
+        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "idle",
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "agree",
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "agree",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "idle"
+      }
+    },
     "stale_T1_claim": {
-      "hash": "0xd28d3170423c70dfd807ad784abae294d5de082cd824d2d6145d335b15102933",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0xd28d3170423c70dfd807ad784abae294d5de082cd824d2d6145d335b15102933",
+      "hash": "0xab2b0cd728bd66c5251bdc8a51848bfcc14185ee8a56b813c8b456bce8330faf",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xab2b0cd728bd66c5251bdc8a51848bfcc14185ee8a56b813c8b456bce8330faf",
       "status": "FINALIZED_EXECUTION_ERROR",
       "execution": "ERROR",
       "stateUnchanged": true,
       "leaderExecution": "ERROR",
       "votes": {
-        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "agree",
-        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "idle",
-        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "idle",
         "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree",
-        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "idle"
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree",
+        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "idle"
       }
     },
     "claim_unaffected_T2": {
-      "hash": "0xee20dfcf52b6d9778a4fedb308d11203552a94a735b699e5dc6b83bb3a53eb3a",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0xee20dfcf52b6d9778a4fedb308d11203552a94a735b699e5dc6b83bb3a53eb3a",
+      "hash": "0xc55bf8718f0de7fab1230e66711a9912d971007239d2ee03245cd0336510d38f",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xc55bf8718f0de7fab1230e66711a9912d971007239d2ee03245cd0336510d38f",
       "status": "FINALIZED_SUCCESS",
       "leaderExecution": "SUCCESS",
       "votes": {
-        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "agree",
-        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "idle",
-        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
-        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "idle",
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "agree",
+        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "idle",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "idle",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree",
         "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "agree"
       }
     },
     "reapprove_T1_v1": {
-      "hash": "0xd792c7342dfbe445e4d06ed3cb308a376053e8c0b96b9d4b2255f7ce6cebe1ea",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0xd792c7342dfbe445e4d06ed3cb308a376053e8c0b96b9d4b2255f7ce6cebe1ea",
+      "hash": "0xc1262f8cf382db9152de9c545eeb19a111f7fbc95e87e70d0ee31a20a926ce38",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xc1262f8cf382db9152de9c545eeb19a111f7fbc95e87e70d0ee31a20a926ce38",
       "status": "FINALIZED_SUCCESS",
       "leaderExecution": "SUCCESS",
       "votes": {
-        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "agree",
-        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
-        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "agree",
+        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "idle",
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "agree",
         "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
-        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree"
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "idle"
       }
     },
     "claim_T1_v1": {
-      "hash": "0xbb472a370ec3d7f6cf426533a5733308bbbf792b532a71e8a00d20ba709d1fd6",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0xbb472a370ec3d7f6cf426533a5733308bbbf792b532a71e8a00d20ba709d1fd6",
+      "hash": "0x5c4296448b6f0c9c23fa5bac1ac0c60a0206bc7885ddd9eae17bbf1cca017ee6",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x5c4296448b6f0c9c23fa5bac1ac0c60a0206bc7885ddd9eae17bbf1cca017ee6",
       "status": "FINALIZED_SUCCESS",
       "leaderExecution": "SUCCESS",
       "votes": {
-        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "idle",
-        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "idle",
-        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree",
-        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
-        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree"
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "idle",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "idle",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
       }
     },
     "reapprove_T3_v1": {
-      "hash": "0x0d878795703c37aa3789a88001abd9a1f6c34d940a077c1b44fcd6b924b319d8",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0x0d878795703c37aa3789a88001abd9a1f6c34d940a077c1b44fcd6b924b319d8",
+      "hash": "0x5414e7d10eaee01f95c50ff9661493d437a3287bac79852094c5e27bdd5557d0",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x5414e7d10eaee01f95c50ff9661493d437a3287bac79852094c5e27bdd5557d0",
       "status": "FINALIZED_SUCCESS",
       "leaderExecution": "SUCCESS",
       "votes": {
-        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "agree",
-        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "idle",
-        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
-        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "idle",
-        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree"
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "idle",
+        "0x17ac0CaefB18205c737e64ee582c9245A28ca1f9": "agree",
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "idle",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
       }
     },
     "claim_T3_v1": {
-      "hash": "0x2b71e4bbd19e5d9bbf2e75d3477f1f419d245bbff398952af8f7b4cb3ab43d61",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0x2b71e4bbd19e5d9bbf2e75d3477f1f419d245bbff398952af8f7b4cb3ab43d61",
+      "hash": "0xabbc1a102c951ab15a50831e0e4fcace0d00820ac70cacbaed9f8a604e7371a5",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0xabbc1a102c951ab15a50831e0e4fcace0d00820ac70cacbaed9f8a604e7371a5",
       "status": "FINALIZED_SUCCESS",
       "leaderExecution": "SUCCESS",
       "votes": {
-        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "agree",
-        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "idle",
-        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "agree",
-        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "idle",
-        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree"
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "agree",
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "idle"
       }
     },
     "withdraw_supplier_credit": {
-      "hash": "0xdfb4cb806bc51b0b6fb2deae7544e3fdd3c14b5e9b27a681fd1555d0150b17ce",
-      "explorer": "https://explorer-studio.genlayer.com/tx/0xdfb4cb806bc51b0b6fb2deae7544e3fdd3c14b5e9b27a681fd1555d0150b17ce",
+      "hash": "0x722a50041e988f6d879c96422da4b11dd1300c16ec48c3def6390e6173021b5f",
+      "explorer": "https://explorer-studio.genlayer.com/tx/0x722a50041e988f6d879c96422da4b11dd1300c16ec48c3def6390e6173021b5f",
       "status": "FINALIZED_SUCCESS",
       "leaderExecution": "SUCCESS",
       "votes": {
-        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "idle",
-        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "idle",
-        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
-        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
-        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "idle",
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "idle",
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "agree",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree",
+        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "agree"
       }
     }
   },
@@ -297,14 +297,14 @@
       "agreement_hash": "723bed0fa02fd5af557bfa982bdcbb92d00fb37c06f9c0157986898f4ce724fb",
       "amendment": null,
       "buyer": "0xa2b378092576d931b610a7f842ee7c9c21e2a088",
-      "check_deadline": 1792597535,
+      "check_deadline": 1792634171,
       "checks": [
         "PENDING",
         "PENDING",
         "PENDING"
       ],
       "claim_deadline": 0,
-      "created_at": 1792424735,
+      "created_at": 1792461371,
       "fund_deadline": 0,
       "history": [],
       "reserved_wei": "0",
@@ -357,19 +357,19 @@
       "version": "changeorder-firewall.v1"
     },
     "afterMaterialAmendment": {
-      "accept_deadline": 1793030043,
+      "accept_deadline": 1793066366,
       "agreement_hash": "ec524242ade6745ffa3cc25b7ec9246d625896a8e9c1ea589018cd63d992cb78",
       "amendment": null,
       "buyer": "0xa2b378092576d931b610a7f842ee7c9c21e2a088",
-      "check_deadline": 1792597535,
+      "check_deadline": 1792634171,
       "checks": [
         "OBSERVABLE",
         "OBSERVABLE",
         "OBSERVABLE"
       ],
-      "claim_deadline": 1795622089,
-      "created_at": 1792424735,
-      "fund_deadline": 1793029860,
+      "claim_deadline": 1795658412,
+      "created_at": 1792461371,
+      "fund_deadline": 1793066314,
       "history": [
         {
           "affected": [
@@ -391,7 +391,7 @@
       ],
       "reserved_wei": "3000000000000000",
       "revision": 1,
-      "settle_deadline": 1795017289,
+      "settle_deadline": 1795053612,
       "status": "ACTIVE",
       "supplier": "0x7f2d3c7340ed34541a8951575faafc7378cc5678",
       "terms": [
@@ -401,7 +401,7 @@
           "claimed": false,
           "generation": 1,
           "id": "T1",
-          "reapproval_deadline": 1793046988,
+          "reapproval_deadline": 1793066810,
           "refunded": false,
           "requires": [],
           "text": "Deliver a CSV export containing id, date and SKU columns; quantity and price columns are not required.",
@@ -425,7 +425,7 @@
           "claimed": false,
           "generation": 1,
           "id": "T3",
-          "reapproval_deadline": 1793046988,
+          "reapproval_deadline": 1793066810,
           "refunded": false,
           "requires": [
             "T1"
@@ -439,19 +439,19 @@
       "version": "changeorder-firewall.v1"
     },
     "afterRejectedStaleClaim": {
-      "accept_deadline": 1793030043,
+      "accept_deadline": 1793066366,
       "agreement_hash": "ec524242ade6745ffa3cc25b7ec9246d625896a8e9c1ea589018cd63d992cb78",
       "amendment": null,
       "buyer": "0xa2b378092576d931b610a7f842ee7c9c21e2a088",
-      "check_deadline": 1792597535,
+      "check_deadline": 1792634171,
       "checks": [
         "OBSERVABLE",
         "OBSERVABLE",
         "OBSERVABLE"
       ],
-      "claim_deadline": 1795622089,
-      "created_at": 1792424735,
-      "fund_deadline": 1793029860,
+      "claim_deadline": 1795658412,
+      "created_at": 1792461371,
+      "fund_deadline": 1793066314,
       "history": [
         {
           "affected": [
@@ -473,7 +473,7 @@
       ],
       "reserved_wei": "3000000000000000",
       "revision": 1,
-      "settle_deadline": 1795017289,
+      "settle_deadline": 1795053612,
       "status": "ACTIVE",
       "supplier": "0x7f2d3c7340ed34541a8951575faafc7378cc5678",
       "terms": [
@@ -483,7 +483,7 @@
           "claimed": false,
           "generation": 1,
           "id": "T1",
-          "reapproval_deadline": 1793046988,
+          "reapproval_deadline": 1793066810,
           "refunded": false,
           "requires": [],
           "text": "Deliver a CSV export containing id, date and SKU columns; quantity and price columns are not required.",
@@ -507,7 +507,7 @@
           "claimed": false,
           "generation": 1,
           "id": "T3",
-          "reapproval_deadline": 1793046988,
+          "reapproval_deadline": 1793066810,
           "refunded": false,
           "requires": [
             "T1"
@@ -521,19 +521,19 @@
       "version": "changeorder-firewall.v1"
     },
     "afterUnaffectedT2Claim": {
-      "accept_deadline": 1793030043,
+      "accept_deadline": 1793066366,
       "agreement_hash": "ec524242ade6745ffa3cc25b7ec9246d625896a8e9c1ea589018cd63d992cb78",
       "amendment": null,
       "buyer": "0xa2b378092576d931b610a7f842ee7c9c21e2a088",
-      "check_deadline": 1792597535,
+      "check_deadline": 1792634171,
       "checks": [
         "OBSERVABLE",
         "OBSERVABLE",
         "OBSERVABLE"
       ],
-      "claim_deadline": 1795622089,
-      "created_at": 1792424735,
-      "fund_deadline": 1793029860,
+      "claim_deadline": 1795658412,
+      "created_at": 1792461371,
+      "fund_deadline": 1793066314,
       "history": [
         {
           "affected": [
@@ -555,7 +555,7 @@
       ],
       "reserved_wei": "2000000000000000",
       "revision": 1,
-      "settle_deadline": 1795017289,
+      "settle_deadline": 1795053612,
       "status": "ACTIVE",
       "supplier": "0x7f2d3c7340ed34541a8951575faafc7378cc5678",
       "terms": [
@@ -565,7 +565,7 @@
           "claimed": false,
           "generation": 1,
           "id": "T1",
-          "reapproval_deadline": 1793046988,
+          "reapproval_deadline": 1793066810,
           "refunded": false,
           "requires": [],
           "text": "Deliver a CSV export containing id, date and SKU columns; quantity and price columns are not required.",
@@ -589,7 +589,7 @@
           "claimed": false,
           "generation": 1,
           "id": "T3",
-          "reapproval_deadline": 1793046988,
+          "reapproval_deadline": 1793066810,
           "refunded": false,
           "requires": [
             "T1"
@@ -603,19 +603,19 @@
       "version": "changeorder-firewall.v1"
     },
     "afterAllClaimsAndWithdrawal": {
-      "accept_deadline": 1793030043,
+      "accept_deadline": 1793066366,
       "agreement_hash": "ec524242ade6745ffa3cc25b7ec9246d625896a8e9c1ea589018cd63d992cb78",
       "amendment": null,
       "buyer": "0xa2b378092576d931b610a7f842ee7c9c21e2a088",
-      "check_deadline": 1792597535,
+      "check_deadline": 1792634171,
       "checks": [
         "OBSERVABLE",
         "OBSERVABLE",
         "OBSERVABLE"
       ],
-      "claim_deadline": 1795622089,
-      "created_at": 1792424735,
-      "fund_deadline": 1793029860,
+      "claim_deadline": 1795658412,
+      "created_at": 1792461371,
+      "fund_deadline": 1793066314,
       "history": [
         {
           "affected": [
@@ -637,7 +637,7 @@
       ],
       "reserved_wei": "0",
       "revision": 1,
-      "settle_deadline": 1795017289,
+      "settle_deadline": 1795053612,
       "status": "ACTIVE",
       "supplier": "0x7f2d3c7340ed34541a8951575faafc7378cc5678",
       "terms": [
@@ -647,7 +647,7 @@
           "claimed": true,
           "generation": 1,
           "id": "T1",
-          "reapproval_deadline": 1793046988,
+          "reapproval_deadline": 1793066810,
           "refunded": false,
           "requires": [],
           "text": "Deliver a CSV export containing id, date and SKU columns; quantity and price columns are not required.",
@@ -671,7 +671,7 @@
           "claimed": true,
           "generation": 1,
           "id": "T3",
-          "reapproval_deadline": 1793046988,
+          "reapproval_deadline": 1793066810,
           "refunded": false,
           "requires": [
             "T1"
@@ -688,24 +688,24 @@
   "payout": {
     "supplierCreditBeforeWithdrawWei": "3000000000000000",
     "supplierCreditAfterWithdrawWei": "0",
-    "supplierWalletBeforeWei": "0",
-    "supplierWalletAfterWei": "3000000000000000",
+    "supplierWalletBeforeWei": "2000000000000000",
+    "supplierWalletAfterWei": "5000000000000000",
     "childTransfers": [
       {
-        "hash": "0xe8cf0726acd3c87f31555199607bfcfbd12bdb770fca8998a4918593a83ed452",
-        "explorer": "https://explorer-studio.genlayer.com/tx/0xe8cf0726acd3c87f31555199607bfcfbd12bdb770fca8998a4918593a83ed452",
+        "hash": "0x611bcc43511be23a5f2efb8241305220757619a60a254d2dc4b2e7abbdbc77ed",
+        "explorer": "https://explorer-studio.genlayer.com/tx/0x611bcc43511be23a5f2efb8241305220757619a60a254d2dc4b2e7abbdbc77ed",
         "status": "FINALIZED",
         "valueWei": "3000000000000000",
         "valueCredited": true,
         "recipient": "0x7F2D3C7340ed34541A8951575FaAFc7378cC5678",
-        "parentHash": "0xdfb4cb806bc51b0b6fb2deae7544e3fdd3c14b5e9b27a681fd1555d0150b17ce",
+        "parentHash": "0x722a50041e988f6d879c96422da4b11dd1300c16ec48c3def6390e6173021b5f",
         "rawResultName": "NO_MAJORITY"
       }
     ]
   },
   "limits": [
     "The buyer's approval attests acceptance; the contract does not independently prove physical delivery or supplier identity.",
-    "This proof uses script-controlled test wallets. Browser-wallet and mobile-wallet interaction have not been verified end to end.",
+    "This proof uses script-controlled test wallets. A separate historical browser-wallet case verified buyer-side MetaMask actions on an earlier contract version; the amended source has not had a fresh browser-wallet write test.",
     "StudioNet uses test GEN; this is not a production-funds security audit."
   ]
 }

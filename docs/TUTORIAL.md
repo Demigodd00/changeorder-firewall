@@ -1,6 +1,6 @@
 # Code walkthrough: a signed change without stale approvals
 
-This walkthrough explains the deployed [contract source](https://github.com/Demigodd00/changeorder-firewall/blob/7fdf247e30e7d0df1e418d5ab413267ec6a2acc2/contracts/changeorder_firewall.py), rather than inventing a hypothetical application. Follow it with the [live proof](LIVE_EVIDENCE.md) and the [public read-only app](https://changeorder-firewall-studionet.esuspsychic.chatgpt.site/). The demo wallets and GEN amounts are test-only.
+This walkthrough explains the latest deployed [contract source](https://github.com/Demigodd00/changeorder-firewall/blob/ce25e284b0878819a8744d33d72ad3006cd7f333/contracts/changeorder_firewall.py), rather than inventing a hypothetical application. Follow it with the [live proof](LIVE_EVIDENCE.md) and the [public read-only app](https://changeorder-firewall-studionet.esuspsychic.chatgpt.site/). The demo wallets and GEN amounts are test-only.
 
 ## 1. Bound the agreement before funding
 
@@ -26,4 +26,4 @@ The live case has T1 (CSV export), T2 (independent guide), and T3 (integration d
 
 The buyer calls `approve_term(index)` to set `approval_generation` to the current generation. `claim_term` requires the supplier, an unsettled term, an open claim window, and exact equality between `approval_generation` and `generation`. The live stale T1 claim finalized with an expected execution error and no state change; the unaffected T2 claim succeeded. After fresh T1/T3 approvals, those claims succeeded too. Each claim moves only that term's fixed wei amount out of the reserve into supplier-owned pull credit. `withdraw_credit()` emits the external transfer on finalization; the proof verifier checks its credited amount and recipient separately from contract-call receipts.
 
-This demonstrates version-aware approval validity and test-GEN accounting for one live case. It does *not* authenticate real-world deliverables, prove commercial identity, test every possible amendment, or establish production security. The published UI's read-only inspector works without a wallet; browser-wallet writes still need an end-to-end wallet test.
+This demonstrates version-aware approval validity and test-GEN accounting for one live case. It does *not* authenticate real-world deliverables, prove commercial identity, test every possible amendment, or establish production security. The published UI's read-only inspector works without a wallet. Buyer MetaMask writes were verified on an earlier contract version; the latest version still needs a fresh browser-wallet write test.
