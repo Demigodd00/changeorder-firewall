@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const walletPath = resolve(repo, "deploy/.wallets.json");
-const journalPath = resolve(repo, "deploy/.live-journal.json");
+const journalPath = resolve(repo, process.env.CHANGEORDER_LIVE_JOURNAL || "deploy/.live-journal.json");
 const sourcePath = resolve(repo, "contracts/changeorder_firewall.py");
 const chain = chains.studionet;
 const wait = { status: TransactionStatus.FINALIZED, interval: 10_000, retries: 90 };
@@ -123,6 +123,30 @@ async function main() {
     console.log(JSON.stringify(journal(), null, 2));
     return;
   }
+  if (command === "fund-test-buyer") {
+    const state = journal();
+    const amount = 1000000000000000n;
+    if (!state.testBuyerFundingHash) {
+      const buyerBalance = await client().getBalance({ address: accounts.buyer.address });
+      if (buyerBalance >= 3000000000000000n) {
+        console.log(`buyer_already_funded balance_wei=${buyerBalance}`);
+        return;
+      }
+      if (buyerBalance !== 2000000000000000n) throw new Error("Unexpected buyer balance; inspect before funding.");
+      state.testBuyerFundingHash = await client(accounts.supplier).sendTransaction({ to: accounts.buyer.address, value: amount });
+      save(journalPath, state);
+      console.log(`submitted_test_buyer_funding ${state.testBuyerFundingHash}`);
+    }
+    await client().waitForTransactionReceipt({ hash: state.testBuyerFundingHash, ...wait });
+    const transfer = await client().getTransaction({ hash: state.testBuyerFundingHash });
+    if (transfer.statusName !== TransactionStatus.FINALIZED || transfer.value_credited !== true ||
+        transfer.recipient?.toLowerCase() !== accounts.buyer.address.toLowerCase() ||
+        String(transfer.value) !== String(amount)) throw new Error("Test-wallet funding did not finalize as expected.");
+    state.testBuyerFundingFinalized = true;
+    save(journalPath, state);
+    console.log(`funded_test_buyer ${state.testBuyerFundingHash}`);
+    return;
+  }
   if (command === "screen") {
     const state = journal();
     if (!state.address || state.deployStatus !== "FINALIZED_SUCCESS") throw new Error("Finalize the deployment first.");
@@ -228,7 +252,7 @@ async function main() {
     console.log(`supplier_withdrawal credit=${state.supplierCreditAfterWithdraw} balance_before=${state.supplierBalanceBeforeWithdraw} balance_after=${state.supplierBalanceAfterWithdraw}`);
     return;
   }
-  if (command !== "deploy") throw new Error("Use init, status, deploy, screen, activate, amend, or settle.");
+  if (command !== "deploy") throw new Error("Use init, status, fund-test-buyer, deploy, screen, activate, amend, or settle.");
   const { head, blob, source } = pushedSource();
   const state = journal();
   if (state.commit && state.commit !== head) {

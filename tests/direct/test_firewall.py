@@ -123,6 +123,52 @@ def test_vague_amendment_aborts_without_rewriting_order(
     contract.claim_term(0)
 
 
+def test_claim_during_proposal_blocks_late_countersignature(
+    direct_vm, direct_deploy, direct_alice, direct_bob, monkeypatch
+):
+    contract, _ = active(direct_vm, direct_deploy, direct_alice, direct_bob, monkeypatch)
+    original = contract.get_state()["terms"][0]["text"]
+    direct_vm.sender = direct_alice
+    contract.approve_term(0)
+    contract.propose_amendment(json.dumps([
+        {"id": "T1", "new_text": "Supply a CSV export containing only id and date columns."}]))
+    direct_vm.sender = direct_bob
+    contract.claim_term(0)  # Unsigned proposals do not lock legitimate claims.
+    with direct_vm.expect_revert("Cannot sign amendment for settled term"):
+        contract.sign_amendment()
+    state = contract.get_state()
+    assert state["revision"] == 0
+    assert state["terms"][0]["text"] == original
+    assert state["terms"][0]["claimed"] is True
+    assert state["amendment"]["phase"] == "PROPOSED"
+    warp_after(direct_vm, state["amendment"]["deadline"])
+    contract.expire_proposal()
+    assert contract.get_state()["amendment"] is None
+    assert contract.credit_of(addr(direct_bob)) == str(EXPORT)
+
+
+def test_refund_during_proposal_blocks_late_countersignature(
+    direct_vm, direct_deploy, direct_alice, direct_bob, monkeypatch
+):
+    contract, _ = active(direct_vm, direct_deploy, direct_alice, direct_bob, monkeypatch)
+    original = contract.get_state()["terms"][0]["text"]
+    settle_deadline = contract.get_state()["settle_deadline"]
+    warp_after(direct_vm, settle_deadline - 1)
+    direct_vm.sender = direct_alice
+    contract.propose_amendment(json.dumps([
+        {"id": "T1", "new_text": "Supply a CSV export containing only id and date columns."}]))
+    warp_after(direct_vm, settle_deadline)
+    direct_vm.sender = direct_bob
+    contract.refund_term(0)
+    with direct_vm.expect_revert("Cannot sign amendment for settled term"):
+        contract.sign_amendment()
+    state = contract.get_state()
+    assert state["revision"] == 0
+    assert state["terms"][0]["text"] == original
+    assert state["terms"][0]["refunded"] is True
+    assert contract.credit_of(addr(direct_alice)) == str(EXPORT)
+
+
 def test_incomplete_review_defaults_to_material_after_deadline(
     direct_vm, direct_deploy, direct_alice, direct_bob, monkeypatch
 ):

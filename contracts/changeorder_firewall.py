@@ -366,6 +366,11 @@ class ChangeOrderFirewall(gl.Contract):
         require(actor() in (self.buyer, self.supplier) and actor() != amend["proposer"], "Other party must sign")
         require(now() <= amend["deadline"], "Signature deadline passed")
         require(amend["base_revision"] == state["revision"], "Stale amendment")
+        # A proposal is not binding: claims and refunds may continue until
+        # countersignature. Do not let a late signature revise paid-out text.
+        terms_by_id = {term["id"]: term for term in state["terms"]}
+        require(all(not terms_by_id[edit["id"]]["claimed"] and not terms_by_id[edit["id"]]["refunded"]
+                    for edit in amend["edits"]), "Cannot sign amendment for settled term")
         amend["phase"] = "REVIEW"
         amend["signed_by"] = actor()
         amend["deadline"] = now() + REVIEW_WINDOW
@@ -409,6 +414,16 @@ class ChangeOrderFirewall(gl.Contract):
     def finalize_amendment(self) -> None:
         state = self._state()
         amend = amendment_in(state, "REVIEW")
+        # Defensive fail-closed path if any future operation settles an edited
+        # term during review. Abort instead of rewriting a settled obligation.
+        terms_by_id = {term["id"]: term for term in state["terms"]}
+        if any(terms_by_id[edit["id"]]["claimed"] or terms_by_id[edit["id"]]["refunded"]
+               for edit in amend["edits"]):
+            state["history"].append({"revision": state["revision"], "proposal_hash": amend["proposal_hash"],
+                                     "outcome": "ABORTED_SETTLED"})
+            state["amendment"] = None
+            self._save(state)
+            return
         require(all(e["screen"] == "OBSERVABLE" for e in amend["edits"]) or now() > amend["deadline"], "Screens pending")
         if any(e["screen"] != "OBSERVABLE" for e in amend["edits"]):
             # No unchecked/vague amendment can activate on a timeout.

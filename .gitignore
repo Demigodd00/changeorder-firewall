@@ -6,6 +6,7 @@ dist/
 .artifacts/
 deploy/.wallets.json
 deploy/.live-journal.json
+deploy/.live-journal-v2.json
 .env
 .env.*
 !.env.example

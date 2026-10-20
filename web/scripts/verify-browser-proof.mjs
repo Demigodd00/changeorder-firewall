@@ -7,7 +7,6 @@ import { fileURLToPath } from "node:url";
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const proof = JSON.parse(readFileSync(resolve(repo, "deploy/browser-wallet-proof.json"), "utf8"));
-const sourcePath = resolve(repo, proof.source.path);
 const client = createClient({ chain: chains.studionet });
 
 function check(condition, message) {
@@ -47,8 +46,8 @@ async function main() {
   check(proof.schema === "changeorder-firewall-browser-wallet-proof-v1", "unexpected schema");
   check(proof.chainId === chains.studionet.id, "chain differs from StudioNet");
   check(git("rev-parse", `${proof.source.commit}:${proof.source.path}`) === proof.source.gitBlob, "pinned source blob differs");
-  check(git("hash-object", sourcePath) === proof.source.gitBlob, "working contract source differs");
-  check(await client.getContractCode(proof.contract.address) === readFileSync(sourcePath, "utf8"), "deployed contract source differs");
+  const pinnedSource = execFileSync("git", ["show", `${proof.source.commit}:${proof.source.path}`], { cwd: repo, encoding: "utf8" });
+  check(await client.getContractCode(proof.contract.address) === pinnedSource, "deployed code differs from pinned historical source");
 
   const txs = proof.transactions;
   check(txs.deploy.interface === "browser-wallet" && txs.fund.interface === "browser-wallet" &&
@@ -83,7 +82,7 @@ async function main() {
   check(BigInt(proof.observedPayout.supplierBalanceAfterWei) - BigInt(proof.observedPayout.supplierBalanceBeforeWei) ===
     BigInt(proof.observedPayout.increaseWei), "recorded historical balance delta is inconsistent");
   check(proof.observedPayout.increaseWei === txs.payoutChild.valueWei, "recorded balance delta differs from payout");
-  console.log("PASS: buyer browser-wallet deploy/fund/approve, four script-signed IC actions, exact finalized payout, source equality and final order state");
+  console.log("PASS: historical buyer browser-wallet deploy/fund/approve, four script-signed IC actions, exact finalized payout, pinned historical source equality and final order state; this is not a browser test of the latest contract");
 }
 
 main().catch(error => { console.error(error.message); process.exitCode = 1; });

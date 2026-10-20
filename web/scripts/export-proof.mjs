@@ -4,7 +4,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const journal = JSON.parse(readFileSync(resolve(repo, "deploy/.live-journal.json"), "utf8"));
+const journal = JSON.parse(readFileSync(resolve(repo, process.env.CHANGEORDER_LIVE_JOURNAL || "deploy/.live-journal.json"), "utf8"));
 const source = readFileSync(resolve(repo, "contracts/changeorder_firewall.py"), "utf8");
 const sourceBlob = execFileSync("git", ["hash-object", "contracts/changeorder_firewall.py"], { cwd: repo, encoding: "utf8" }).trim();
 const explorer = "https://explorer-studio.genlayer.com";
@@ -91,7 +91,7 @@ const proof = {
   },
   limits: [
     "The buyer's approval attests acceptance; the contract does not independently prove physical delivery or supplier identity.",
-    "This proof uses script-controlled test wallets. Browser-wallet and mobile-wallet interaction have not been verified end to end.",
+    "This proof uses script-controlled test wallets. A separate historical browser-wallet case verified buyer-side MetaMask actions on an earlier contract version; the amended source has not had a fresh browser-wallet write test.",
     "StudioNet uses test GEN; this is not a production-funds security audit.",
   ],
 };
