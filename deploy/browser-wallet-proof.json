@@ -1,0 +1,121 @@
+{
+  "schema": "changeorder-firewall-browser-wallet-proof-v1",
+  "network": "GenLayer StudioNet",
+  "chainId": 61999,
+  "testedOn": "2026-10-20",
+  "appUrl": "https://changeorder-firewall-studionet.esuspsychic.chatgpt.site/",
+  "source": {
+    "commit": "0003a2fa918271c7623c685a03f25877875bacb2",
+    "gitBlob": "ac4966335fe7a82ad22df9ea09bce125a5fee052",
+    "path": "contracts/changeorder_firewall.py"
+  },
+  "contract": {
+    "address": "0x75cBC25e870b68bcA32078ef803bffbFAA192f47",
+    "title": "Browser wallet E2E — 2026-10-20",
+    "explorer": "https://explorer-studio.genlayer.com/address/0x75cBC25e870b68bcA32078ef803bffbFAA192f47"
+  },
+  "participants": {
+    "buyer": "0x8d74F33835A2301C3c19ee1079bEE68885ed9c9c",
+    "supplier": "0x7F2D3C7340ed34541A8951575FaAFc7378cC5678",
+    "buyerSigner": "MetaMask browser extension; human confirmed each prompt",
+    "supplierSigner": "project test-only script wallet"
+  },
+  "amountWei": "100000000000000",
+  "transactions": {
+    "testFunding": {
+      "hash": "0x03eedbb62e96b910e9d67e0415674e03d35f6603665bc6732680ae325ebfd51d",
+      "kind": "external_transfer",
+      "sender": "supplier",
+      "recipient": "buyer",
+      "valueWei": "100000000000000"
+    },
+    "deploy": {
+      "hash": "0xb0f69f25095f78ce36868bed3afd0d88d12c13ce5b499b8afbbbc54c7c954f97",
+      "kind": "intelligent_contract",
+      "signer": "buyer",
+      "interface": "browser-wallet",
+      "method": "constructor",
+      "valueWei": "0"
+    },
+    "checkTerm": {
+      "hash": "0xdee33d101f36fc66940386e55b9d9b103d254bee9874bf19f6576329fc176ee6",
+      "kind": "intelligent_contract",
+      "signer": "supplier",
+      "interface": "script",
+      "method": "check_term(0)",
+      "valueWei": "0"
+    },
+    "fund": {
+      "hash": "0xfa14b2d028b3fbc8abbffe4e41c206eb49e966e5497278c6b0dc845e9be656f0",
+      "kind": "intelligent_contract",
+      "signer": "buyer",
+      "interface": "browser-wallet",
+      "method": "fund()",
+      "valueWei": "100000000000000"
+    },
+    "accept": {
+      "hash": "0xeb1459eff1002e09a1c35f047a621e9e4835aa455346a30bbdf028427c6fa100",
+      "kind": "intelligent_contract",
+      "signer": "supplier",
+      "interface": "script",
+      "method": "accept()",
+      "valueWei": "0"
+    },
+    "approveTerm": {
+      "hash": "0x1acc1bbf93a8cddbe697dbaab796f7df0153c9f33cb37fdcfb60c65befd56160",
+      "kind": "intelligent_contract",
+      "signer": "buyer",
+      "interface": "browser-wallet",
+      "method": "approve_term(0)",
+      "valueWei": "0"
+    },
+    "claimTerm": {
+      "hash": "0xc0586cc03069239f277d1c520c0b2555c3eb4332b8fd8b92f6bdcc452915ca14",
+      "kind": "intelligent_contract",
+      "signer": "supplier",
+      "interface": "script",
+      "method": "claim_term(0)",
+      "valueWei": "0"
+    },
+    "withdrawCredit": {
+      "hash": "0x97a01e01237b38e7723fa697f5828d0d1d806650f74d12a8e9bd29af0fba286a",
+      "kind": "intelligent_contract",
+      "signer": "supplier",
+      "interface": "script",
+      "method": "withdraw_credit()",
+      "valueWei": "0"
+    },
+    "payoutChild": {
+      "hash": "0x9ad465c3dc796ad7273d71f47f61a2760f736a5ad4eb693a60d88f26c988e33c",
+      "kind": "external_transfer",
+      "sender": "contract",
+      "recipient": "supplier",
+      "valueWei": "100000000000000",
+      "parent": "withdrawCredit"
+    }
+  },
+  "observedFinalState": {
+    "status": "ACTIVE",
+    "checks": ["OBSERVABLE"],
+    "revision": 0,
+    "totalWei": "100000000000000",
+    "reservedWei": "0",
+    "termId": "T1",
+    "termGeneration": 0,
+    "approvalGeneration": 0,
+    "claimed": true,
+    "refunded": false,
+    "supplierCreditWei": "0"
+  },
+  "observedPayout": {
+    "supplierBalanceBeforeWei": "2900000000000000",
+    "supplierBalanceAfterWei": "3000000000000000",
+    "increaseWei": "100000000000000"
+  },
+  "scope": [
+    "Buyer browser-wallet deployment, exact payable funding, and term approval were exercised in Chrome with human MetaMask confirmations.",
+    "Screening, supplier acceptance, claim, and pull withdrawal used a project-controlled test wallet.",
+    "The finalized child transfer and exact historical supplier balance increase were checked independently of the browser UI.",
+    "Supplier-side browser signing, mobile QR pairing, production funds, and real-world delivery were not tested."
+  ]
+}
