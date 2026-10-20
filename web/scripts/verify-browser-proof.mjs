@@ -6,7 +6,8 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const proof = JSON.parse(readFileSync(resolve(repo, "deploy/browser-wallet-proof.json"), "utf8"));
+const proofPath = process.argv[2] || "deploy/browser-wallet-proof.json";
+const proof = JSON.parse(readFileSync(resolve(repo, proofPath), "utf8"));
 const client = createClient({ chain: chains.studionet });
 
 function check(condition, message) {
@@ -29,6 +30,10 @@ async function verifyIntelligentContractTx(name, entry) {
   check(sameAddress(tx.sender, proof.participants[entry.signer]), `${name} signer differs`);
   check(sameAddress(tx.recipient, proof.contract.address), `${name} recipient differs`);
   check(String(tx.value || "0") === entry.valueWei, `${name} value differs`);
+  if (entry.method !== "constructor") {
+    const expectedMethod = entry.method.split("(")[0];
+    check(tx.data?.calldata?.readable?.includes(`"method":"${expectedMethod}"`), `${name} method differs`);
+  }
   return tx;
 }
 
@@ -43,7 +48,7 @@ async function verifyExternalTx(name, entry, sender, recipient) {
 }
 
 async function main() {
-  check(proof.schema === "changeorder-firewall-browser-wallet-proof-v1", "unexpected schema");
+  check(["changeorder-firewall-browser-wallet-proof-v1", "changeorder-firewall-browser-wallet-proof-v2"].includes(proof.schema), "unexpected schema");
   check(proof.chainId === chains.studionet.id, "chain differs from StudioNet");
   check(git("rev-parse", `${proof.source.commit}:${proof.source.path}`) === proof.source.gitBlob, "pinned source blob differs");
   const pinnedSource = execFileSync("git", ["show", `${proof.source.commit}:${proof.source.path}`], { cwd: repo, encoding: "utf8" });
@@ -82,7 +87,7 @@ async function main() {
   check(BigInt(proof.observedPayout.supplierBalanceAfterWei) - BigInt(proof.observedPayout.supplierBalanceBeforeWei) ===
     BigInt(proof.observedPayout.increaseWei), "recorded historical balance delta is inconsistent");
   check(proof.observedPayout.increaseWei === txs.payoutChild.valueWei, "recorded balance delta differs from payout");
-  console.log("PASS: historical buyer browser-wallet deploy/fund/approve, four script-signed IC actions, exact finalized payout, pinned historical source equality and final order state; this is not a browser test of the latest contract");
+  console.log(`PASS: ${proofPath} buyer browser-wallet deploy/fund/approve, four script-signed IC actions, exact finalized payout, pinned source equality and final order state`);
 }
 
 main().catch(error => { console.error(error.message); process.exitCode = 1; });

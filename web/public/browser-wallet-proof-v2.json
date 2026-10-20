@@ -1,0 +1,138 @@
+{
+  "schema": "changeorder-firewall-browser-wallet-proof-v2",
+  "network": "GenLayer StudioNet",
+  "chainId": 61999,
+  "testedOn": "2026-10-20",
+  "appUrl": "https://changeorder-firewall-studionet.esuspsychic.chatgpt.site/",
+  "source": {
+    "commit": "ce25e284b0878819a8744d33d72ad3006cd7f333",
+    "gitBlob": "845d5613b8081ce520c39310e69a0c88a8ce97c9",
+    "path": "contracts/changeorder_firewall.py",
+    "runner": "py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6"
+  },
+  "toolchain": {
+    "genlayerJs": "1.1.8",
+    "rainbowKit": "2.2.11",
+    "wagmi": "2.19.5"
+  },
+  "contract": {
+    "address": "0xab75Fc1EE668Be319Ab49044011Aabf6fe63227C",
+    "title": "Patched browser wallet test — 2026-10-20",
+    "explorer": "https://explorer-studio.genlayer.com/address/0xab75Fc1EE668Be319Ab49044011Aabf6fe63227C"
+  },
+  "constructor": {
+    "supplier": "0x7F2D3C7340ed34541A8951575FaAFc7378cC5678",
+    "terms": [
+      {
+        "id": "T1",
+        "text": "Deliver a Markdown setup guide containing installation and troubleshooting sections.",
+        "requires": [],
+        "amount_wei": "100000000000000"
+      }
+    ]
+  },
+  "participants": {
+    "buyer": "0x8d74F33835A2301C3c19ee1079bEE68885ed9c9c",
+    "supplier": "0x7F2D3C7340ed34541A8951575FaAFc7378cC5678",
+    "buyerSigner": "MetaMask browser extension; human confirmed each buyer transaction prompt",
+    "supplierSigner": "project test-only script wallet"
+  },
+  "amountWei": "100000000000000",
+  "transactions": {
+    "testFunding": {
+      "hash": "0xc730c818f870c5fba5a9ad078d9a9de4e5eea6cf2816cbe710a0d27d8bc6f61e",
+      "kind": "external_transfer",
+      "sender": "supplier",
+      "recipient": "buyer",
+      "valueWei": "100000000000000"
+    },
+    "deploy": {
+      "hash": "0x4aaf6a8ac4feff17561b13d464c527d11a5bdc8ebebbc870702e81116ac04c36",
+      "kind": "intelligent_contract",
+      "signer": "buyer",
+      "interface": "browser-wallet",
+      "method": "constructor",
+      "valueWei": "0"
+    },
+    "checkTerm": {
+      "hash": "0x37854ff21891478c9ea57926080ccf07b374a9f75480015529d0b1cb0bc8142c",
+      "kind": "intelligent_contract",
+      "signer": "supplier",
+      "interface": "script",
+      "method": "check_term(0)",
+      "valueWei": "0"
+    },
+    "fund": {
+      "hash": "0x2b2531993a294aec0149f11bd2f96d37d773ce5787af8b4eafe6e0f8a48bfdee",
+      "kind": "intelligent_contract",
+      "signer": "buyer",
+      "interface": "browser-wallet",
+      "method": "fund()",
+      "valueWei": "100000000000000"
+    },
+    "accept": {
+      "hash": "0x895ddf4c7b30378d06df089dc6d7fb07e0814b25f2cb2f5f8810f4486276bc03",
+      "kind": "intelligent_contract",
+      "signer": "supplier",
+      "interface": "script",
+      "method": "accept()",
+      "valueWei": "0"
+    },
+    "approveTerm": {
+      "hash": "0xb766f61bbccd5714d07970ed13fc0ff9f648d188301710eb56559dc881a34dc7",
+      "kind": "intelligent_contract",
+      "signer": "buyer",
+      "interface": "browser-wallet",
+      "method": "approve_term(0)",
+      "valueWei": "0"
+    },
+    "claimTerm": {
+      "hash": "0x94a9ca0163daa2b7b2e97f8f3e72defc23f23e3c233239d12dd5930f44f07469",
+      "kind": "intelligent_contract",
+      "signer": "supplier",
+      "interface": "script",
+      "method": "claim_term(0)",
+      "valueWei": "0"
+    },
+    "withdrawCredit": {
+      "hash": "0xa40480537ab53c58adff3f235cf406ef35af00e12754f058512ca253fc16a700",
+      "kind": "intelligent_contract",
+      "signer": "supplier",
+      "interface": "script",
+      "method": "withdraw_credit()",
+      "valueWei": "0"
+    },
+    "payoutChild": {
+      "hash": "0x2ff42a0e9261389d431fcd9609c35a4a7b949cb4684ea3e3b79a82b8d3303f61",
+      "kind": "external_transfer",
+      "sender": "contract",
+      "recipient": "supplier",
+      "valueWei": "100000000000000",
+      "parent": "withdrawCredit"
+    }
+  },
+  "observedFinalState": {
+    "status": "ACTIVE",
+    "checks": ["OBSERVABLE"],
+    "revision": 0,
+    "totalWei": "100000000000000",
+    "reservedWei": "0",
+    "termId": "T1",
+    "termGeneration": 0,
+    "approvalGeneration": 0,
+    "claimed": true,
+    "refunded": false,
+    "supplierCreditWei": "0"
+  },
+  "observedPayout": {
+    "supplierBalanceBeforeWei": "4900000000000000",
+    "supplierBalanceAfterWei": "5000000000000000",
+    "increaseWei": "100000000000000"
+  },
+  "scope": [
+    "Buyer MetaMask deployed the pinned patched source, funded exactly 0.0001 StudioNet test GEN, and approved the term in Chrome with separate human confirmations.",
+    "The project-controlled test supplier screened, accepted, claimed, and withdrew through a script.",
+    "All seven Intelligent Contract transactions finalized with successful leader execution; the linked external payout credited the supplier exactly 0.0001 test GEN and cleared pull credit.",
+    "This synthetic order proves the patched-version buyer browser path. The settled-term amendment guard is separately demonstrated by the primary live proof. Supplier-side browser signing, mobile QR pairing, production funds, and real-world delivery remain untested."
+  ]
+}

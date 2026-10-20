@@ -8,7 +8,8 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "verify:proof": "node scripts/verify-proof.mjs",
-    "verify:browser-proof": "node scripts/verify-browser-proof.mjs"
+    "verify:browser-proof": "node scripts/verify-browser-proof.mjs",
+    "verify:browser-proof:patched": "node scripts/verify-browser-proof.mjs deploy/browser-wallet-proof-v2.json"
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "2.2.11",

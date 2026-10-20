@@ -7,6 +7,7 @@ dist/
 deploy/.wallets.json
 deploy/.live-journal.json
 deploy/.live-journal-v2.json
+deploy/.browser-wallet-patch-journal.json
 .env
 .env.*
 !.env.example
