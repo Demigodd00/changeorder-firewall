@@ -10,6 +10,7 @@ export type Provider = {
 
 export const studioChainId = chains.studionet.id;
 export const reader = createClient({ chain: chains.studionet });
+const finalityWait = { status: TransactionStatus.FINALIZED, interval: 10_000, retries: 90 };
 export const validAddress = (value: string): value is `0x${string}` =>
   /^0x[0-9a-fA-F]{40}$/.test(value) && !/^0x0{40}$/.test(value);
 export const same = (a: string | undefined, b: string | undefined) =>
@@ -79,7 +80,7 @@ export async function submitWrite(input: {
   await verifyWallet(input.provider, input.walletAddress);
   const hash = await client.writeContract(call);
   input.onSubmitted(hash);
-  await client.waitForTransactionReceipt({ hash, status: TransactionStatus.FINALIZED });
+  await client.waitForTransactionReceipt({ hash, ...finalityWait });
   const receipt = await client.getTransaction({ hash });
   const leaderExecution = receipt.consensus_data?.leader_receipt?.[0]?.execution_result;
   if (receipt.statusName !== TransactionStatus.FINALIZED || leaderExecution !== "SUCCESS" || (receipt.txExecutionResultName && receipt.txExecutionResultName !== ExecutionResult.FINISHED_WITH_RETURN)) {
@@ -107,7 +108,7 @@ export async function deployOrder(input: {
   });
   if (!/^0x[0-9a-fA-F]{64}$/.test(hash)) throw new Error("Wallet did not return a valid deployment transaction hash.");
   input.onSubmitted(hash);
-  await client.waitForTransactionReceipt({ hash: hash as Hash, status: TransactionStatus.FINALIZED });
+  await client.waitForTransactionReceipt({ hash: hash as Hash, ...finalityWait });
   const receipt = await client.getTransaction({ hash: hash as Hash });
   const leaderExecution = receipt.consensus_data?.leader_receipt?.[0]?.execution_result;
   if (receipt.statusName !== TransactionStatus.FINALIZED || leaderExecution !== "SUCCESS" || (receipt.txExecutionResultName && receipt.txExecutionResultName !== ExecutionResult.FINISHED_WITH_RETURN)) {

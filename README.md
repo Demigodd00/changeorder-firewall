@@ -2,7 +2,7 @@
 
 ChangeOrder Firewall is a GenLayer-native, version-aware approval protocol for commercial orders. When a buyer and supplier sign an amendment, validators decide whether the new wording materially changes each edited obligation. Deterministic contract code follows the pre-agreed dependency graph: an affected tranche needs fresh approval, while independent approved tranches remain claimable. AI never selects a wallet or payment amount.
 
-**Status:** deployed and exercised on StudioNet at [`0xbb76b3A5af5328677cAb21781f1e70a7e2F4FE87`](https://explorer-studio.genlayer.com/address/0xbb76b3A5af5328677cAb21781f1e70a7e2F4FE87). The dedicated GitHub repository is still private, the updated frontend is a local preview, and no GenLayer Portal submission has been made. See [the public-safe proof manifest](deploy/proof.json) and [live evidence runbook](docs/LIVE_EVIDENCE.md).
+**Status:** deployed and exercised on [StudioNet](https://explorer-studio.genlayer.com/address/0xbb76b3A5af5328677cAb21781f1e70a7e2F4FE87). The [public app](https://changeorder-firewall-studionet.esuspsychic.chatgpt.site/) and [dedicated public repository](https://github.com/Demigodd00/changeorder-firewall) are available for review. No GenLayer Portal submission has been made. Start with the [submission pack](docs/SUBMISSION.md), [proof manifest](deploy/proof.json), and [live evidence runbook](docs/LIVE_EVIDENCE.md).
 
 ## What makes it different
 
@@ -50,7 +50,7 @@ pnpm build
 pnpm dev
 ```
 
-The frontend imports the exact Python source in this repository and offers a bounded order-creation form. Its wallet-free reviewer view preloads the live StudioNet demo contract; `VITE_CONTRACT_ADDRESS` can override that default. `VITE_WALLETCONNECT_PROJECT_ID` optionally enables WalletConnect-compatible mobile wallets; without one, the pinned RainbowKit configuration supports detected extension wallets. The site is still a local preview. The browser deployment and wallet-action paths compile but have **not** been verified end to end with a live wallet.
+The frontend imports the exact Python source in this repository and offers a bounded order-creation form. Its wallet-free reviewer view preloads the live StudioNet demo contract; `VITE_CONTRACT_ADDRESS` can override that default. `VITE_WALLETCONNECT_PROJECT_ID` optionally enables WalletConnect-compatible mobile wallets; without one, the pinned RainbowKit configuration offers a browser-extension wallet. The [public site](https://changeorder-firewall-studionet.esuspsychic.chatgpt.site/) has been tested for the finalized read-only path. The browser deployment and wallet-action paths compile but have **not** been verified end to end with a live wallet.
 
 ## Order lifecycle
 
@@ -64,8 +64,8 @@ All waiting phases have deadlines. See [the detailed design](docs/DESIGN.md) and
 
 ## Verification status and limitations
 
-`genvm-lint check`, type checking, and 12 direct-mode tests passed locally. A pinned-runner StudioNet probe finalized successfully, followed by the deployed order. The live demo covers observability screening, exact 0.003 test GEN funding, both-party amendment approval, `MATERIAL` judgment, generation propagation `[1,0,1]`, rejection of a stale T1 claim, a successful unaffected T2 claim, fresh T1/T3 approvals and claims, and an exact 0.003 test GEN pull-credit withdrawal. The deployment code was compared with the pushed contract source. Every transaction hash, snapshot and payout check is recorded in [the proof manifest](deploy/proof.json). This does **not** establish browser-wallet interoperability or a production-funds security audit.
+`genvm-lint check`, type checking, and 12 direct-mode tests passed locally. A pinned-runner StudioNet probe finalized successfully, followed by the deployed order. The live demo covers observability screening, exact 0.003 test GEN funding, both-party amendment approval, `MATERIAL` judgment, generation propagation `[1,0,1]`, rejection of a stale T1 claim, a successful unaffected T2 claim, fresh T1/T3 approvals and claims, and an exact 0.003 test GEN pull-credit withdrawal. The deployment code was compared with the pinned contract source. Every transaction hash, validator-vote map, snapshot and payout check is recorded in [the proof manifest](deploy/proof.json). Re-run the read-only verifier with `cd web; pnpm verify:proof`. This does **not** establish browser-wallet interoperability or a production-funds security audit.
 
-The contract intentionally does not judge whether work was truly delivered. It cannot reverse a tranche already paid before an amendment. GEN sent through an undefined method or a raw transfer is outside its normal `fund()` accounting path; use only the documented payable method. Mobile-wallet QR pairing is not configured, and frontend deployment remains unverified live. None of these limits should be hidden from reviewers.
+The contract intentionally does not judge whether work was truly delivered. It cannot reverse a tranche already paid before an amendment. GEN sent through an undefined method or a raw transfer is outside its normal `fund()` accounting path; use only the documented payable method. Mobile-wallet QR pairing is not configured, and browser-wallet actions remain unverified. None of these limits should be hidden from reviewers.
 
-No score or Portal outcome is guaranteed. Public repository visibility, frontend publication and Portal submission require the user's explicit approval.
+No score or Portal outcome is guaranteed. The public repository and frontend are published; the human submits to the Portal.

@@ -9,7 +9,7 @@ For any unclaimed tranche, a buyer approval is claimable only if its approval ge
 - Buyer and supplier sign a bounded, public on-chain agreement. They control its words, not the model's verdict or the deterministic dependency traversal. The agreement text is the authoritative evidence of what they consented to; it is not proof of physical delivery.
 - Validators independently judge one term's observability, or one amendment's material effect on one old term. They compare the sole canonical decision field exactly. No reasoning or unverified quote enters state.
 - Code controls graph validation, affected-branch propagation, fixed amounts, authorization, deadlines, approval generations, and credits. The model cannot pick a payment recipient or amount.
-- The web app reads finalized contract state. Its examples are explicitly illustrative until a live StudioNet proof exists.
+- The web app reads finalized contract state. Its diagram is illustrative; the separate public proof manifest records the live StudioNet case.
 
 ## State and deadlines
 
@@ -29,4 +29,4 @@ MatchPay checks order-document consistency and makes one fixed payout/refund dec
 
 ## Stage gates
 
-Local lint, direct tests, contract validator-callback tests, and frontend build precede any deployment. A small StudioNet runner/write/read probe, then a deployed version with finalized-success evidence and state read-backs, is needed before any submission-readiness claim. GitHub visibility and Portal submission require explicit user approval.
+Local lint, direct tests, a StudioNet runner probe, deployed source comparison, finalized receipts, state read-backs and a public read-only frontend are recorded. Browser-wallet actions remain unverified, so the site must not claim that complete path has passed. The public repository and site were published with user approval; Portal submission remains a human action.

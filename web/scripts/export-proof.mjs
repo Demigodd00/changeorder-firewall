@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -95,6 +95,30 @@ const proof = {
     "StudioNet uses test GEN; this is not a production-funds security audit.",
   ],
 };
+
+// Keep independently verified receipt metadata when regenerating unchanged proof.
+const existingPath = resolve(repo, "deploy/proof.json");
+if (existsSync(existingPath)) {
+  const existing = JSON.parse(readFileSync(existingPath, "utf8"));
+  if (existing.contract?.deploymentHash === proof.contract.deploymentHash) {
+    for (const field of ["leaderExecution", "votes"]) {
+      if (field in existing.contract) proof.contract[field] = existing.contract[field];
+    }
+  }
+  for (const [name, step] of Object.entries(proof.transactions)) {
+    if (existing.transactions?.[name]?.hash !== step.hash) continue;
+    for (const field of ["leaderExecution", "votes"]) {
+      if (field in existing.transactions[name]) step[field] = existing.transactions[name][field];
+    }
+  }
+  for (const child of proof.payout.childTransfers) {
+    const previous = existing.payout?.childTransfers?.find(item => item.hash === child.hash);
+    if (!previous) continue;
+    for (const field of ["valueWei", "valueCredited", "recipient", "parentHash", "rawResultName"]) {
+      if (field in previous) child[field] = previous[field];
+    }
+  }
+}
 
 for (const path of [resolve(repo, "deploy/proof.json"), resolve(repo, "web/public/proof.json")]) {
   mkdirSync(dirname(path), { recursive: true });

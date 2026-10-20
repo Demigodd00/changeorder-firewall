@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview --host 127.0.0.1"
+    "preview": "vite preview --host 127.0.0.1",
+    "verify:proof": "node scripts/verify-proof.mjs"
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "2.2.11",
