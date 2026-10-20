@@ -50,7 +50,7 @@ pnpm build
 pnpm dev
 ```
 
-The frontend imports the exact Python source in this repository and offers a bounded order-creation form. Its wallet-free reviewer view preloads the live StudioNet demo contract; `VITE_CONTRACT_ADDRESS` can override that default. `VITE_WALLETCONNECT_PROJECT_ID` optionally enables WalletConnect-compatible mobile wallets; without one, the pinned RainbowKit configuration offers a browser-extension wallet. The [public site](https://changeorder-firewall-studionet.esuspsychic.chatgpt.site/) has been tested for finalized read-only inspection and buyer-side MetaMask deployment, exact funding, and term approval. Supplier-side browser signing and mobile pairing have not been tested.
+The frontend imports the exact Python source in this repository and offers a bounded order-creation form. Its wallet-free reviewer view preloads the live StudioNet demo contract; `VITE_CONTRACT_ADDRESS` can override that default. `VITE_WALLETCONNECT_PROJECT_ID` optionally enables WalletConnect-compatible mobile wallets; without one, the pinned RainbowKit configuration offers a browser-extension wallet. The [public site](https://changeorder-firewall-studionet.esuspsychic.chatgpt.site/) serves the latest proof for finalized read-only inspection. Buyer-side MetaMask deployment, exact funding and approval were tested on an earlier contract version; latest-version browser writes, supplier browser signing and mobile pairing have not been tested.
 
 ## Order lifecycle
 
